@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>anime</title>
+
+    <link href="anime.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="titles" class="block">
+        <h2 id="title">Title</h2>
+    </div>
+
+    <div id="animeInfo">
+
+        <div id="cover" class="block">
+            <img />
+        </div>
+
+        <div id="ratings" class="block">
+            <h2>Ratings</h2>
+            <ul class="dataList">
+                <li><span id="ratingItem"></span> <span id="userVotes" class="smallDetails"></span></li>
+            </ul>
+        </div>
+
+        <div id="genres" class="block">
+            <h2>Genres</h2>
+            <ul id="genresList" class="dataList"></ul>
+        </div>
+
+        <div id="ops" class="block">
+            <h2>Opening Song(s)</h2>
+            <ul id="opList" class="dataList"></ul>
+        </div>
+
+        <div id="eds" class="block">
+            <h2>Ending Song(s)</h2>
+            <ul id="edList" class="dataList"></ul>
+        </div>
+
+        <div id="synopsis" class="block">
+            <h2>Synopsis</h2>
+            <p id="plot"></p>
+        </div>
+
+        <div id="dates" class="block">
+            <h2>Dates</h2>
+            <ul id="datesList" class="dataList"></ul>
+        </div>
+
+        <div id="episodes" class="block">
+            <h2>Episodes</h2>
+            <span id="totalEpisodes"></span> <span id="epAccuracy" class="smallDetails"></span>
+            <ul id="episodesList" class="dataList"></ul>
+        </div>
+
+        <div id="staff" class="block">
+            <h2>Staff</h2>
+            <ul id="staffList" class="dataList"></ul>
+        </div>
+
+        <div id="characters" class="block">
+            <h2>Characters</h2>
+            <ul id="characterList" class="dataList"></ul>
+        </div>
+
+        <div id="moreInfo" class="block">
+        
+        </div>
+
+        <div id="clipboard" data-win-control="WinJS.UI.Flyout" aria-label="{Title copied}">
+            The anime title has been copied to your clipboard
+        </div>
+    </div>
+</body>
+
+<script>
+    require('./pages/anime/anime.js');
+</script>
+</html>

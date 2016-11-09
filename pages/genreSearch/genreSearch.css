@@ -1,0 +1,54 @@
+﻿#resultNumber {
+    display:none;
+}
+
+#gridView {
+    height:94%;
+    width:80%;
+}
+
+.smallGridSearchItem {
+    display:none;
+    height:100px;
+}
+
+.gridView .win-gridlayout .win-item {
+    width: 430px;
+    height: 130px;
+}
+
+.smallGridImage {
+    text-align:center;
+    height:130px;
+    width:130px;
+    overflow:hidden;
+    float:left;
+    background-position:center top;
+}
+
+.smallGridItemInfo {
+    float:left;
+    width:400px;
+    padding-left:4px;
+    padding-right:4px;
+}
+
+.smallGridItemInfoTitle {
+    font-size:20px;
+    color:#0090c6;
+}
+
+.smallGridItemInfoAltTitle {
+
+}
+
+.smallGridItemInfoGenres {
+    font-size:15px;
+    position:absolute;
+    bottom: 5px;
+    color:#09a0d8;
+}
+
+.win-listview .win-gridlayout .win-container {
+    background-color:rgba(0,0,0,0.05);
+}

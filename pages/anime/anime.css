@@ -1,0 +1,154 @@
+﻿#titles {
+    display:none;
+    color:#0090c6;
+    text-align:center;
+    width:75.7%;
+    min-height:5%;
+    max-height:10%;
+    margin-left:1.6%;
+    cursor: pointer;
+}
+
+#titles h2 {
+    margin-bottom:2px;
+    margin-top:5px;
+}
+
+#cover {
+    order: 0;
+    flex-basis:20%;
+}
+
+#synopsis {
+    order:1;
+    flex-basis:70%;
+}
+
+#genres {
+    order:3;
+    flex-basis:20%;
+    
+}
+
+#ratings {
+    flex-basis:20%;
+    order:2;
+}
+
+#dates {
+    /*width:45%;
+    height:20%;*/
+    order:4;
+    flex-basis:45.3%;
+}
+
+#episodes {
+    /*width:45%;
+    height:20%;*/
+    order:7;
+    flex-basis:70%;
+}
+
+#ops {
+    flex-basis:45%;
+    order:5;
+}
+
+#eds {
+    flex-basis:45%;
+    order:6;
+}
+
+#staff {
+    /*width:45%;
+    max-height:20%;*/
+    order:9;
+}
+
+#characters {
+    /*width:45%;
+    max-height:20%;*/
+    order:8;
+    flex-basis:20%;
+}
+
+#moreInfo {
+    order:10;
+    min-height:3%;
+    max-height:3%;
+}
+
+#synopsis p {
+    margin-left:10px;
+	margin-top:10px;
+}
+
+.dataList {
+    list-style-type: none;
+}
+
+#totalEpisodes,.dataList
+{
+    margin-left:10px;
+	margin-top:10px;
+	padding:0px;
+    order:10;
+}
+
+/*.floatLeft {
+    float:left;
+}*/
+
+.block {
+    border:1px solid #DADADA; 
+    box-shadow: 0px 2px 3px rgba(0,0,0,0.15);
+    border-radius: 3px;
+    margin-left: 2%;
+    margin-right:2%;
+    margin-top:1%;
+    max-height:25%;
+    padding-right:4px;
+    overflow:auto;
+    min-height:12%;
+    min-width:20%;
+}
+
+.block h2 {
+    margin-top:4px;
+    margin-bottom:4px;
+}
+
+.block h2,#cover {
+    text-align:center;
+}
+
+.smallDetails {
+    font-size:11px;
+}
+
+#animeInfo {
+    display:none;
+    width: 80%;
+    height: 82.7%;
+    overflow:auto;
+    clear:both;
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+
+.not-available {
+ position: relative;
+}
+
+.not-available:before {
+ font-size:24px;
+ content: "N/A";
+ position: absolute;
+ text-align: center;
+ right: 0px;
+ left: 0px;
+ top: 45%;
+ color:#C5C5C5;
+}

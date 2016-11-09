@@ -1,0 +1,31 @@
+{
+  "name": "AnimeTracker",
+  "version": "1.0.0",
+  "description": "Anime Tracker",
+  "homepage": "myanimetracker.com",
+  "main": "main.js",
+  "author": {
+    "name": "Musbah Sinno",
+    "email": "support@myanimetracker.com"
+  },
+  "dependencies": {
+    "autosuggest-trie": "^2.0.0",
+    "winjs": "^4.4.0"
+  },
+  "devDependencies": {
+    "electron": "^1.4.1"
+  },
+  "scripts": {
+    "pack": "build --dir",
+    "dist": "build --win --linux"
+  },
+  "build": {
+    "appId": "com.anime.animetracker",
+    "win": {
+      "target": "7z"
+    },
+    "linux": {
+      "target": "7z"
+    }
+  }
+}

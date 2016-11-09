@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>search</title>
+
+    <link href="genreSearch.css" rel="stylesheet" />
+</head>
+<body>
+        <div id="resultNumber"></div>
+        <div id="gridView"
+                data-win-control="WinJS.UI.ListView"
+                data-win-options="{
+            layout: { type: WinJS.UI.GridLayout }}">
+        </div>
+
+        <div class="smallGridSearchItem" data-win-control="WinJS.Binding.Template">
+            <div class="smallGridSearchItemOuter">
+                <div class="smallGridImage" data-win-bind="style.backgroundImage: image;"></div>
+                <div class="smallGridItemInfo">
+                    <span class="smallGridItemInfoTitle" data-win-bind="innerText: title"></span><br />
+                    <span class="smallGridItemInfoAltTitle" data-win-bind="innerText: altTitle"></span>
+                    <div class="smallGridItemInfoGenres" data-win-bind="innerText: allGenres"></div>
+                </div>
+                <span class="smallGridSearchItemId" data-win-bind="innerText: id" hidden></span>
+            </div>
+        </div>
+</body>
+
+<script>
+    require('./pages/genreSearch/genreSearch.js');
+</script>
+</html>

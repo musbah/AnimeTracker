@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Anime Tracker</title>
+
+    <!-- WinJS references -->
+    <link href="node_modules/winjs/css/ui-light.css" rel="stylesheet" />
+    <script src="node_modules/winjs/js/base.js"></script>
+    <script src="node_modules/winjs/js/ui.js"></script>
+
+    <!-- Anime_Tracker references -->
+    <link href="css/default.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="leftContainer">
+        <div id="navBarContainer" class="nav-commands">
+            <div id="backButton" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Back', icon: 'back'}"></div>
+            <div id="homeButton" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Home', icon: 'home'}"></div>
+            <div id="showListInBar" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Show List', icon: 'list'}"></div>
+            <div id="hideListInBar" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Hide List', icon: 'list'}"></div>
+            <div id="addAnime" class="addOrEditAnime" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Add to list', icon: 'favorite'}"></div>
+            <div id="editAnime" class="addOrEditAnime" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Edit list', icon: 'favorite'}"></div>
+            <div id="settingsButton" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Settings', icon: 'settings'}"></div>
+        </div>
+        <div id="listView"
+             class="win-selectionstylefilled"
+             data-win-control="WinJS.UI.ListView"
+             data-win-options="{
+            tapBehavior : 'invokeOnly',
+            layout: { type: WinJS.UI.ListLayout }
+            }">
+        </div>
+
+        <div id="listHeader">
+            <button id="cmdEdit">&#xE104;</button>
+            <button id="cmdDelete">&#xE107;</button>
+            <button id="cmdSelect">&#xE14E;</button>
+            <button id="cmdClear">&#xE1C5;</button>
+
+            <select id="animeListSortDropDown">
+                <option value="disabled" selected disabled>Sort By</option>
+                <option value="alpha">Alphabetical Order</option>
+                <option value="watched">Episodes Watched</option>
+                <option value="added">Order Added To The List</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="smallListItem" class="smallListItem" data-win-control="WinJS.Binding.Template">
+        <div class="smallListInfo">
+            <div class="title">
+                <span data-win-bind="innerText: name"></span>
+            </div>
+            <div class="note">
+                <span class="noteDetail"><span class="color">Current Ep:</span> <span data-win-bind="innerText: episode"></span></span><br />
+                <span class="noteDetail"><span class="color">Status:</span> <span data-win-bind="innerText: status"></span></span><br />
+                <span class="noteDetail"><span class="color">Note:</span> <span data-win-bind="innerText: comment"></span></span>
+                <span class="smallListItemId" data-win-bind="innerText: id" hidden></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="AddAnimeFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Add anime flyout}">
+        Name: <span id="animeName"></span><br />
+        Status: <select id="animeStatus">
+            <option value="Watching">Watching</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Dropped">Dropped</option>
+            <option value="Completed">Completed</option>
+            <option value="To Watch">To Watch</option>
+        </select><br />
+        Episode: <input id="epField" type="number" />/<span class="maxEpNum"></span><br />
+        Comment(optional):<br /><textarea id="animeComment" cols="25" rows="5"></textarea><br />
+        <button id="addAnimeSubmit">Submit</button>
+    </div>
+
+    <div id="EditAnimeFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Edit anime flyout}">
+        Name: <span id="animeEditName"></span><br />
+        Status: <select id="animeEditStatus">
+            <option value="Watching">Watching</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Dropped">Dropped</option>
+            <option value="Completed">Completed</option>
+            <option value="To Watch">To Watch</option>
+        </select><br />
+        Episode: <input id="epEditField" type="number" />/<span class="maxEpNum"></span><br />
+        Comment(optional):<br /><textarea id="animeEditComment" cols="25" rows="5"></textarea><br />
+        <button id="editAnimeSubmit">Submit</button><button id="removeAnimeSubmit">Remove</button>
+    </div>
+
+    <div id="SettingsFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Settings flyout}">
+        This settings pop up is still under construction, will hopefully be done with it soon.<br /><br />
+        This application has been created by Musbah Sinno<br />
+        The source for most of the data is Anime News Network.
+    </div>
+
+    <div id="rightContainer">
+
+        <div id="searchArea">
+            <div id="status">Error, restart app</div>
+            <input type="text" id="searchBoxId" placeholder="Search"><button id="searchButton">&#xE094;</button>
+            <div id="searchDropDown"><ul id="dropList"></ul></div>
+            <button id="randomAnime">Random</button><button id="animeGenreSearch">Search by genres</button> <div id="line-separatorId"></div> <button id="filter">Filters</button>
+        </div>
+
+        <div id="FilterFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Filter flyout}">
+            <div id="filterGenres"></div>
+        </div>
+
+        <h2 id="animeLoading">Loading anime information...</h2>
+        <div id="noRandom">No Results found (try changing the filter)</div>
+        <div id="contenthost" data-win-control="Application.PageControlNavigator" data-win-options="{home: 'pages/home/home.html'}"></div>
+
+    </div>
+
+</body>
+
+<script>
+    // You can also require other files to run in this process
+    require('./renderer.js');
+    require('./js/default.js');
+    require('./js/utilities.js');
+    require('./js/settings.js');
+    require('./js/user.js');
+    require('./js/importInfo.js');
+    require('./js/navigator.js');
+</script>
+
+</html>
