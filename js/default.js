@@ -388,7 +388,9 @@ function searchSubmit()
             if (match[i].name == text)
             {
                 predefined = true;
-                WinJS.Navigation.navigate("pages/anime/anime.html", animeList[match[i].id]);
+
+                var options = {anime:animeList[match[i].id] , defaultGenres:defaultGenres};
+                WinJS.Navigation.navigate("pages/anime/anime.html", options);
                 currentAnimeId = animeList[match[i].id].id;
                 break;
             }
@@ -487,7 +489,9 @@ WinJS.Namespace.define("Lists", {
                 if (animeList[i].id == invokedItem.data.id)
                 {
                     document.getElementById("status").innerHTML = "";
-                    WinJS.Navigation.navigate("pages/anime/anime.html", animeList[i]);
+
+                    var options = {anime:animeList[i] , defaultGenres:defaultGenres};
+                    WinJS.Navigation.navigate("pages/anime/anime.html", options);
                     currentAnimeId = animeList[i].id;
                     break;
                 }
@@ -512,7 +516,9 @@ function randomId()
             {
                 //pick random array item
                 item = animeInFilter[Math.floor(Math.random() * animeInFilter.length)];
-                WinJS.Navigation.navigate("pages/anime/anime.html", item);
+
+                var options = {anime:item , defaultGenres:defaultGenres};
+                WinJS.Navigation.navigate("pages/anime/anime.html", options);
                 currentAnimeId = item.id;
             }
             else
@@ -537,7 +543,9 @@ function randomId()
 
             //pick random array item
             item = noErotica[Math.floor(Math.random() * noErotica.length)];
-            WinJS.Navigation.navigate("pages/anime/anime.html", item);
+
+            var options = {anime:item , defaultGenres:defaultGenres};
+            WinJS.Navigation.navigate("pages/anime/anime.html", options);
             currentAnimeId = item.id;
         }
     }

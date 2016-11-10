@@ -7,7 +7,7 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
     ready: function (element, options)
     {
         //Don't add anything else here, this reloads before unload
-        loadAnimeInfoPage(options, element);
+        loadAnimeInfoPage(element, options.anime, options.defaultGenres);
         document.getElementById("noRandom").style.display = "none";
         Util.showBackButton();
     }
@@ -109,7 +109,7 @@ function xmlToVar(xml, id)
     };
 }
 
-function loadAnimeInfoPage(info, element)
+function loadAnimeInfoPage(element, info , defaultGenres)
 {
 
     var url = "http://cdn.animenewsnetwork.com/encyclopedia/api.xml?anime=" + info.id;
@@ -136,7 +136,7 @@ function loadAnimeInfoPage(info, element)
                 //checks if anime is in the user's list and does the necessary updates
                 User.isInList(currentAnimeId);
 
-                AnimeXmlToOutput(response, title, images, genres, altTitles, element, currentAnimeId);
+                AnimeXmlToOutput(response, title, images, genres, altTitles, element, currentAnimeId , defaultGenres);
             }
             else
             {
@@ -150,7 +150,7 @@ function loadAnimeInfoPage(info, element)
     );
 }
 
-function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, currentAnimeId)
+function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, currentAnimeId , defaultGenres)
 {
     //outside of this "sub" page
     document.getElementById("animeLoading").style.display = "none";
