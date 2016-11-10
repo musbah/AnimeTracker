@@ -30,31 +30,33 @@ function xmlToVar(xml, id)
 
     for (var i = 0; i < infoElement.length; i++)
     {
-        if (infoElement[i].getAttribute("type") == "Plot Summary")
+        var type = infoElement[i].getAttribute("type");
+
+        if (type == "Plot Summary")
         {
             plot = infoElement[i].childNodes[0].nodeValue;
         }
-        else if (infoElement[i].getAttribute("type") == "Themes")
+        else if (type == "Themes")
         {
             themes.push(infoElement[i].childNodes[0].nodeValue);
         }
-        else if (infoElement[i].getAttribute("type") == "Running time")
+        else if (type == "Running time")
         {
             duration = infoElement[i].childNodes[0].nodeValue;
         }
-        else if (infoElement[i].getAttribute("type") == "Number of episodes")
+        else if (type == "Number of episodes")
         {
             episodes = infoElement[i].childNodes[0].nodeValue;
         }
-        else if (infoElement[i].getAttribute("type") == "Vintage")
+        else if (type == "Vintage")
         {
             dates.push(infoElement[i].childNodes[0].nodeValue);
         }
-        else if (infoElement[i].getAttribute("type") == "Opening Theme")
+        else if (type == "Opening Theme")
         {
             opening.push(infoElement[i].childNodes[0].nodeValue);
         }
-        else if (infoElement[i].getAttribute("type") == "Ending Theme")
+        else if (type == "Ending Theme")
         {
             ending.push(infoElement[i].childNodes[0].nodeValue);
         }
@@ -119,11 +121,10 @@ function loadAnimeInfoPage(info, element)
     document.getElementById("animeLoading").style.display = "block";
     document.getElementById("animeLoading").innerHTML = "Loading anime information...";
     WinJS.xhr(
-        {
+    {
             url: url
-        })
-        .done(
-
+    })
+    .done(
         function completed(result)
         {
             if (result.status === 200)
@@ -136,7 +137,6 @@ function loadAnimeInfoPage(info, element)
                 User.isInList(currentAnimeId);
 
                 AnimeXmlToOutput(response, title, images, genres, altTitles, element, currentAnimeId);
-
             }
             else
             {
@@ -147,7 +147,7 @@ function loadAnimeInfoPage(info, element)
         {
             Util.outputError("Can't connect to the server to get this anime's data.");
         }
-        );
+    );
 }
 
 function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, currentAnimeId)
@@ -167,7 +167,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
     }
     catch(e)
 	{
-
+        console.log(e);
 	}
 
     var animeInfo = element.querySelector("#animeInfo");
@@ -198,6 +198,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
+            console.log(e);
         }
 
         try
@@ -215,6 +216,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
+            console.log(e);
         }
 
         try
@@ -281,6 +283,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
+            console.log(e);
         }
 
         try
@@ -321,6 +324,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
+            console.log(e);
         }
 
         try
@@ -345,6 +349,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
+            console.log(e);
         }
 
         try
@@ -366,7 +371,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
-
+            console.log(e);
         }
 
         try
@@ -391,7 +396,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
-
+            console.log(e);
         }
 
         try
@@ -416,7 +421,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
-
+            console.log(e);
         }
 
         //TODO add the code for each
@@ -469,7 +474,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
-
+            console.log(e);
         }
     }
 
@@ -507,7 +512,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
     }
     catch (e)
     {
-
+        console.log(e);
     }
 
     Util.resizeFunction();
