@@ -4,6 +4,7 @@
   "description": "Anime Tracker",
   "homepage": "myanimetracker.com",
   "main": "main.js",
+  "license": "MIT",
   "author": {
     "name": "Musbah Sinno",
     "email": "support@myanimetracker.com"
