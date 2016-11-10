@@ -123,114 +123,116 @@ function initializeEventListeners()
 
     document.getElementById("animeListSortDropDown").addEventListener("change", animeListSort, false);
 
-    document.addEventListener('keydown', function (event) 
-    {
-        //When focus is on searchbar (to move on drop down)
-        if (focusOnSearch)
-        {
-            if (event.keyCode == 13)
-            {
-                //if you press enter
-                searchSubmit();
-
-            }
-            else
-            {
-                var dropList = document.getElementById("dropList");
-                if (dropList.innerHTML != "")
-                {
-                    var element = dropList.getElementsByClassName("selectedDrop");
-
-                    if (event.keyCode == 38)
-                    {
-                        //up arrow
-                        if (element[0] != undefined)
-                        {
-                            if (element[0].previousSibling == null)
-                            {
-                                element[0].className = "";
-                                dropList.lastElementChild.className = "selectedDrop";
-                                document.getElementById("searchDropDown").scrollTop = document.getElementById("searchDropDown").scrollHeight;
-                            }
-                            else
-                            {
-                                element[0].previousSibling.className = "selectedDrop";
-                                element[0].nextSibling.className = "";
-
-                                var elementBounding = element[0].getBoundingClientRect();
-                                var searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
-
-                                if (elementBounding.top < searchDropDownBounding.top)
-                                {
-                                    document.getElementById("searchDropDown").scrollTop -= searchDropDownBounding.top - elementBounding.top;
-                                }
-                            }
-                            searchBox.value = element[0].innerHTML;
-                        }
-                    }
-                    else if (event.keyCode == 40)
-                    {
-                        //down arrow
-                        if (element.length == 0)
-                        {
-                            dropList.firstElementChild.className = "selectedDrop";
-                        }
-                        else
-                        {
-                            if (element[0].nextSibling == null)
-                            {
-                                element[0].className = "";
-                                dropList.firstElementChild.className = "selectedDrop";
-                                document.getElementById("searchDropDown").scrollTop = 0;
-                            }
-                            else
-                            {
-                                element[0].nextSibling.className = "selectedDrop";
-                                element[0].className = "";
-
-                                var elementBounding = element[0].getBoundingClientRect();
-                                var searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
-
-                                if (elementBounding.bottom > searchDropDownBounding.bottom)
-                                {
-                                    document.getElementById("searchDropDown").scrollTop += elementBounding.bottom - searchDropDownBounding.bottom;
-                                }
-                            }
-                        }
-                        searchBox.value = element[0].innerHTML;
-                    }
-                }
-            }
-        }
-    });
+    document.addEventListener('keydown', keyDown);
 
     Util.resizeFunction();
 }
 
 WinJS.Namespace.define("MyApp.Functions",
+{
+    loadAnimeList: function (info)
     {
-        loadAnimeList: function (info)
+        animeList = info.items;
+
+        var trieAnimeList = [];
+        //Making objects out of every alt title (to make trie easier)
+        for (var i = 0, len = animeList.length; i < len; i++)
         {
-            animeList = info.items;
+            var anime = { id: i, name: animeList[i].name };
+            trieAnimeList.push(anime);
 
-            var trieAnimeList = [];
-            //Making objects out of every alt title (to make trie easier)
-            for (var i = 0, len = animeList.length; i < len; i++)
+            for (let j = 0; j < animeList[i].altTitles.length; j++)
             {
-                var anime = { id: i, name: animeList[i].name };
-                trieAnimeList.push(anime);
+                var animeAlt = { id: i, name: animeList[i].altTitles[j].title };
+                trieAnimeList.push(animeAlt);
+            }
+        }
 
-                for (let j = 0; j < animeList[i].altTitles.length; j++)
+        var createTrie = require('autosuggest-trie');
+        trieAnimeTree = createTrie(trieAnimeList, 'name');
+    }
+});
+
+function keyDown(event)
+{
+    //When focus is on searchbar (to move on drop down)
+    if (focusOnSearch)
+    {
+        if (event.keyCode == 13)
+        {
+            //if you press enter
+            searchSubmit();
+
+        }
+        else
+        {
+            var dropList = document.getElementById("dropList");
+            if (dropList.innerHTML != "")
+            {
+                var element = dropList.getElementsByClassName("selectedDrop");
+
+                if (event.keyCode == 38)
                 {
-                    var animeAlt = { id: i, name: animeList[i].altTitles[j].title };
-                    trieAnimeList.push(animeAlt);
+                    //up arrow
+                    if (element[0] != undefined)
+                    {
+                        if (element[0].previousSibling == null)
+                        {
+                            element[0].className = "";
+                            dropList.lastElementChild.className = "selectedDrop";
+                            document.getElementById("searchDropDown").scrollTop = document.getElementById("searchDropDown").scrollHeight;
+                        }
+                        else
+                        {
+                            element[0].previousSibling.className = "selectedDrop";
+                            element[0].nextSibling.className = "";
+
+                            var elementBounding = element[0].getBoundingClientRect();
+                            var searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
+
+                            if (elementBounding.top < searchDropDownBounding.top)
+                            {
+                                document.getElementById("searchDropDown").scrollTop -= searchDropDownBounding.top - elementBounding.top;
+                            }
+                        }
+                        searchBox.value = element[0].innerHTML;
+                    }
+                }
+                else if (event.keyCode == 40)
+                {
+                    //down arrow
+                    if (element.length == 0)
+                    {
+                        dropList.firstElementChild.className = "selectedDrop";
+                    }
+                    else
+                    {
+                        if (element[0].nextSibling == null)
+                        {
+                            element[0].className = "";
+                            dropList.firstElementChild.className = "selectedDrop";
+                            document.getElementById("searchDropDown").scrollTop = 0;
+                        }
+                        else
+                        {
+                            element[0].nextSibling.className = "selectedDrop";
+                            element[0].className = "";
+
+                            var elementBounding = element[0].getBoundingClientRect();
+                            var searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
+
+                            if (elementBounding.bottom > searchDropDownBounding.bottom)
+                            {
+                                document.getElementById("searchDropDown").scrollTop += elementBounding.bottom - searchDropDownBounding.bottom;
+                            }
+                        }
+                    }
+                    searchBox.value = element[0].innerHTML;
                 }
             }
-
-            var createTrie = require('autosuggest-trie');
-            trieAnimeTree = createTrie(trieAnimeList, 'name');
         }
-    });
+    }
+}
 
 function createToggle(parent, name)
 {
@@ -402,7 +404,7 @@ function searchSubmit()
 
         if (!predefined)
         {
-            var options = {query:text,animeList:animeList,defaultGenres:defaultGenres};
+            var options = { query: text, animeList: animeList, defaultGenres: defaultGenres };
             WinJS.Navigation.navigate("pages/search/search.html", options);
         }
     }
@@ -551,8 +553,8 @@ function randomId()
 
 function animeGenreSearch()
 {
-    var options = {animeInFilter:animeInFilter,animeList:animeList,defaultGenres:defaultGenres};
-    WinJS.Navigation.navigate("pages/genreSearch/genreSearch.html",options);
+    var options = { animeInFilter: animeInFilter, animeList: animeList, defaultGenres: defaultGenres };
+    WinJS.Navigation.navigate("pages/genreSearch/genreSearch.html", options);
 }
 
 function showHomeContainer()
