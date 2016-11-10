@@ -1,29 +1,17 @@
 ﻿"use strict";
 
 WinJS.UI.Pages.define("pages/anime/anime.html",
+{
+    // This function is called whenever a user navigates to this page. It
+    // populates the page elements with the app's data.
+    ready: function (element, options)
     {
-        // This function is called whenever a user navigates to this page. It
-        // populates the page elements with the app's data.
-        ready: function (element, options)
-        {
-            //Don't add anything else here, this reloads before unload
-            loadAnimeInfoPage(options, element);
-            document.getElementById("noRandom").style.display = "none";
-            Util.showBackButton();
-        },
-
-        unload: function ()
-        {
-            //Respond to navigations away from this page.
-        },
-
-        updateLayout: function (element)
-        {
-            /// <param name="element" domElement="true" />
-
-            //Respond to changes in layout.
-        }
-    });
+        //Don't add anything else here, this reloads before unload
+        loadAnimeInfoPage(options, element);
+        document.getElementById("noRandom").style.display = "none";
+        Util.showBackButton();
+    }
+});
 
 function xmlToVar(xml, id)
 {

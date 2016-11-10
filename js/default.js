@@ -48,14 +48,6 @@ window.onload = function ()
     initializeEventListeners();
 };
 
-app.oncheckpoint = function (args)
-{
-    // This application is about to be suspended. Save any state
-    // that needs to persist across suspensions here. If you need to 
-    // complete an asynchronous operation before your application is 
-    // suspended, call args.setPromise().
-};
-
 app.start();
 
 function initializeEventListeners()

@@ -1,29 +1,17 @@
 ﻿"use strict";
 
 WinJS.UI.Pages.define("pages/genreSearch/genreSearch.html",
+{
+    // This function is called whenever a user navigates to this page. It
+    // populates the page elements with the app's data.
+    ready: function (element, options)
     {
-        // This function is called whenever a user navigates to this page. It
-        // populates the page elements with the app's data.
-        ready: function (element,options)
-        {
-            element.querySelector("#gridView").winControl.addEventListener("iteminvoked", Lists.itemOnListClicked, false);
-            loadSearchPage(element,options.animeInFilter,options.animeList,options.defaultGenres);
-            document.getElementById("noRandom").style.display = "none";
-            Util.showBackButton();
-        },
-
-        unload: function ()
-        {
-            //Respond to navigations away from this page.
-        },
-
-        updateLayout: function (element)
-        {
-            /// <param name="element" domElement="true" />
-
-            // Respond to changes in layout.
-        }
-    });
+        element.querySelector("#gridView").winControl.addEventListener("iteminvoked", Lists.itemOnListClicked, false);
+        loadSearchPage(element, options.animeInFilter, options.animeList, options.defaultGenres);
+        document.getElementById("noRandom").style.display = "none";
+        Util.showBackButton();
+    }
+});
 
 function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
 {

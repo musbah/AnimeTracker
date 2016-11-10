@@ -2,29 +2,17 @@
 "use strict";
 
 WinJS.UI.Pages.define("pages/search/search.html",
+{
+    // This function is called whenever a user navigates to this page. It
+    // populates the page elements with the app's data.
+    ready: function (element, options)
     {
-        // This function is called whenever a user navigates to this page. It
-        // populates the page elements with the app's data.
-        ready: function (element, options)
-        {
-            element.querySelector("#gridView").winControl.addEventListener("iteminvoked", Lists.itemOnListClicked, false);
-            loadSearchPage(options.query, element, options.animeList, options.defaultGenres);
-            document.getElementById("noRandom").style.display = "none";
-            Util.showBackButton();
-        },
-
-        unload: function ()
-        {
-            // Respond to navigations away from this page.
-        },
-
-        updateLayout: function (element)
-        {
-            /// <param name="element" domElement="true" />
-
-            // Respond to changes in layout.
-        }
-    });
+        element.querySelector("#gridView").winControl.addEventListener("iteminvoked", Lists.itemOnListClicked, false);
+        loadSearchPage(options.query, element, options.animeList, options.defaultGenres);
+        document.getElementById("noRandom").style.display = "none";
+        Util.showBackButton();
+    }
+});
 
 function loadSearchPage(query, element , animeList , defaultGenres)
 {
