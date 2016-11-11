@@ -106,16 +106,6 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
             element.querySelector("#gridView").winControl.itemDataSource = gridList.dataSource;
             element.querySelector("#gridView").winControl.itemTemplate = element.querySelector(".smallGridSearchItem");
             element.querySelector("#resultNumber").style.display = "none";
-
-
-            //TODO
-            //var fixWidth = element.querySelectorAll(".win-listview .win-horizontal .win-gridlayout .win-uniformgridlayout .win-itemsblock");
-            //var newWidth = element.querySelector("#gridView").clientWidth / fixWidth.length;
-
-            //for (var i = 0; i < fixWidth.length; i++)
-            //{
-            //    fixWidth[i].style.width = newWidth + "px";
-            //}
         }
         else
         {

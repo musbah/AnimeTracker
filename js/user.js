@@ -231,9 +231,10 @@ WinJS.Namespace.define("User",
                             return item1 - item2;
                         });
                     }
-                    else if (sort == "added")
+                    else
                     {
-                        //do nothing, the json is already sorted by that order
+                        //for sort by "added items", no need to do anything because
+                        //the json is already sorted by that order
                     }
 
                     listLoad(sortList);

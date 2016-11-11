@@ -478,22 +478,6 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
     }
 
-    /*try
-    {
-        element.querySelector("#animeInfo").onmouseover = function(e)
-        {
-
-            if (e.target === this)
-                e.target.style.overflow = "auto";
-            else
-                element.querySelector("#animeInfo").style.overflow = "hidden";
-        };
-    }
-    catch(e)
-    {
-
-    }*/
-
     try
     {
         element.querySelector("#titles").onclick = function (e)

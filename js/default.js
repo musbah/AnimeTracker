@@ -15,15 +15,6 @@ var defaultGenres = ["Action", "Adventure", "Comedy", "Drama", "Slice of life", 
     "Horror", "Mystery", "Psychological", "Romance", "Science fiction", "Thriller", "Tournament"];
 
 // Initialize your application here.
-/*var applicationView = Windows.UI.ViewManagement.ApplicationView.getForCurrentView();
-var titleBar = applicationView.titleBar;
-titleBar.backgroundColor = {
-    a: 1,
-    b: 242,
-    g: 242,
-    r: 242
-};
-titleBar.buttonBackgroundColor = Windows.UI.Colors.lightGray; */
 window.onload = function ()
 {
     document.getElementById("status").innerHTML = "Initializing User List...";
@@ -344,31 +335,6 @@ function searchInput(eventObject)
 
         if (matches.length == 0)
             searchDropDown.style.display = "none";
-
-        //Way too expensive to use
-        /*if(matches < 6)
-        {
-            //matches weird characters with anime names
-            var matchWeirdChar = [{ regex: new RegExp("o", "g"), replace: "ö" },
-            { regex: new RegExp("o", "g"), replace: "ō" },
-            { regex: new RegExp("ou", "g"), replace: "ō" },
-            { regex: new RegExp("u", "g"), replace: "ū" },
-            { regex: new RegExp("uu", "g"), replace: "ū" },
-            { regex: new RegExp("[e]", "g"), replace: "ē" },
-            { regex: new RegExp("[e]", "g"), replace: "é" },
-            { regex: new RegExp("a", "g"), replace: "ā" },
-            { regex: new RegExp("i", "g"), replace: "ī" }];
-
-            for (var i = 0; i < matchWeirdChar.length; i++)
-            {
-                var trie = trieAnimeTree.getMatches(queryText.replace(matchWeirdChar[i].regex, matchWeirdChar[i].replace), { limit: 10 });
-
-                for (var i = 0; i < trie.length; i++)
-                {
-                    suggestionCollection.appendQuerySuggestion(trie[i].name);
-                }
-            }
-        }*/
     }
 }
 
@@ -592,24 +558,11 @@ function goToPreviousContainer()
     document.getElementById("status").innerHTML = "";
 }
 
-function handleResize(eventArgs)
-{
-    //var appWidth = eventArgs.view.outerWidth;
-    //var appHeight = eventArgs.view.outerHeight;
-}
-
 function listViewSelection()
 {
     var count = listView.winControl.selection.count();
-    if (count > 0)
+    if(count <= 0)
     {
-        // Show selection commands in AppBar
-        //appBar.showCommands(appBarDiv.querySelectorAll('.multiSelect'));
-    }
-    else
-    {
-        // Hide selection commands in AppBar
-        //appBar.hideCommands(appBarDiv.querySelectorAll('.multiSelect'));
         listView.winControl.tapBehavior = WinJS.UI.TapBehavior.invokeOnly;
     }
 }
