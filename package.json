@@ -17,6 +17,7 @@
     "electron": "^1.4.1"
   },
   "scripts": {
+    "start": "electron .",
     "pack": "build --dir",
     "dist": "build --win --linux"
   },
