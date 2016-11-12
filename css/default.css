@@ -16,9 +16,11 @@ body {
 }
 
 #status{
-    margin-top:1%;
+    margin-top:0;
     float:right;
     margin-right:1%;
+    width:20%;
+    overflow: auto;
 }
 
 #searchArea {

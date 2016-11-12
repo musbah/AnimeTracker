@@ -140,12 +140,12 @@ function loadAnimeInfoPage(element, info , defaultGenres)
             }
             else
             {
-                Util.outputError("Can't connect to the server to get this anime's data.");
+                Util.outputError("Can't connect to the ANN's server.");
             }
         },
         function error(err)
         {
-            Util.outputError("Can't connect to the server to get this anime's data.");
+            Util.outputError("Can't connect to the ANN's server.");
         }
     );
 }

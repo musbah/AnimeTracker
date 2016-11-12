@@ -64,7 +64,7 @@ WinJS.Namespace.define("Util",
         resizeFunction: function ()
         {
             //for small screens (phones mostly)
-            if (window.outerWidth <= 708)
+            if (window.outerWidth <= 700)
             {
                 document.getElementById("leftContainer").style.width = "10%";
                 document.getElementById("leftContainer").style.overflow = "hidden";

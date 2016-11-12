@@ -1,6 +1,6 @@
 {
   "name": "AnimeTracker",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "description": "Anime Tracker",
   "homepage": "myanimetracker.com",
   "main": "main.js",
@@ -19,7 +19,7 @@
   "scripts": {
     "start": "electron .",
     "pack": "build --dir",
-    "dist": "build --win --linux"
+    "dist": "build -wl --x64 --ia32"
   },
   "build": {
     "appId": "com.anime.animetracker",
