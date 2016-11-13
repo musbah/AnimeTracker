@@ -474,7 +474,7 @@ function randomId()
     else
     {
         var item;
-        if (animeInFilter !== null)
+        if (animeInFilter !== null && animeInFilter !== undefined)
         {
             if (animeInFilter.length > 0)
             {

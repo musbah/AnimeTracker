@@ -13,6 +13,7 @@
 
 function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
 {
+
     document.getElementById("addAnime").style.display = "none";
     document.getElementById("editAnime").style.display = "none";
 
@@ -24,7 +25,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
     }
     else
     {
-        if (animeInFilter === null)
+        if (animeInFilter === null || animeInFilter === undefined)
         {
             //remove erotica by default
             var exclude = [5];
@@ -41,6 +42,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
 
             animeInFilter = noErotica;
         }
+
 
         //The list of results found
         var list = [];
@@ -59,7 +61,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
                 object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeInFilter[i].images[0] + "')";
             }
 
-            if (animeInFilter[i].altTitles[0] !== null)
+            if (animeInFilter[i].altTitles[0] !== null && animeInFilter[i].altTitles[0] !== undefined)
             {
                 object.altTitle = animeInFilter[i].altTitles[0].title;
             }

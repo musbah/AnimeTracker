@@ -4,7 +4,7 @@ const electronApp = remote.app;
 const folder = electronApp.getPath("userData");
 
 var path;
-var cacheEnabled = true;
+var cacheEnabled = false;
 
 WinJS.UI.Pages.define("pages/anime/anime.html",
 {

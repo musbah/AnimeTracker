@@ -34,7 +34,7 @@ function loadSearchPage(query, element , animeList , defaultGenres)
                 object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeList[i].images[0] + "')";
             }
 
-            if (animeList[i].altTitles[0] !== null)
+            if (animeList[i].altTitles[0] !== null && animeList[i].altTitles[0] !== undefined)
             {
                 object.altTitle = animeList[i].altTitles[0].title;
             }
