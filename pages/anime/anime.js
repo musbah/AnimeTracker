@@ -1,4 +1,10 @@
-﻿"use strict";
+﻿const fs = require('fs');
+const remote = require('electron').remote;
+const electronApp = remote.app;
+const folder = electronApp.getPath("userData");
+
+var path;
+var cacheEnabled = true;
 
 WinJS.UI.Pages.define("pages/anime/anime.html",
 {
@@ -6,12 +12,75 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
     // populates the page elements with the app's data.
     ready: function (element, options)
     {
-        //Don't add anything else here, this reloads before unload
-        loadAnimeInfoPage(element, options.anime, options.defaultGenres);
+        path = folder +"/"+ options.anime.id + ".json";
+
+        //check if a cache exists
+        //TODO: check if cache is out of date
+        if(cacheEnabled && fs.existsSync(path))
+        {
+            fs.readFile(path, function (error, data)
+            {
+                if(error)
+                {
+                    console.log(error);
+                }
+                else
+                {
+                    animeCache = JSON.parse(data);
+                    infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id , animeCache.defaultGenres , animeCache.extraInfo , true);
+                }
+            });
+        }
+        else
+        {
+            loadAnimeInfoPage(element, options.anime, options.defaultGenres);
+        }
+
         document.getElementById("noRandom").style.display = "none";
         Util.showBackButton();
     }
 });
+
+function loadAnimeInfoPage(element, info , defaultGenres)
+{
+
+    var url = "http://cdn.animenewsnetwork.com/encyclopedia/api.xml?anime=" + info.id;
+    var title = info.name;
+    var images = info.images;
+    var genres = info.genres;
+    var altTitles = info.altTitles;
+
+    document.getElementById("animeLoading").style.display = "block";
+    document.getElementById("animeLoading").innerHTML = "Loading anime information...";
+    WinJS.xhr(
+    {
+            url: url
+    })
+    .done(
+        function completed(result)
+        {
+            if (result.status === 200)
+            {
+                var response = result.responseText;
+
+                var currentAnimeId = info.id;
+
+                //checks if anime is in the user's list and does the necessary updates
+                User.isInList(currentAnimeId);
+
+                infoToOutput(title, images, genres, altTitles, element, currentAnimeId , defaultGenres , xmlToVar(response, currentAnimeId), false);
+            }
+            else
+            {
+                Util.outputError("Can't connect to the ANN's server.");
+            }
+        },
+        function error(err)
+        {
+            Util.outputError("Can't connect to the ANN's server.");
+        }
+    );
+}
 
 function xmlToVar(xml, id)
 {
@@ -28,7 +97,7 @@ function xmlToVar(xml, id)
     var opening = [];
     var ending = [];
 
-    for (var i = 0; i < infoElement.length; i++)
+    for (let i = 0; i < infoElement.length; i++)
     {
         var type = infoElement[i].getAttribute("type");
 
@@ -65,7 +134,7 @@ function xmlToVar(xml, id)
     var ratingElement = xmlDoc.getElementsByTagName("ratings");
     var numberOfVotes;
     var rating;
-    if (ratingElement[0] != undefined)
+    if (ratingElement[0] !== undefined)
     {
         numberOfVotes = ratingElement[0].getAttribute("nb_votes");
         rating = ratingElement[0].getAttribute("weighted_score");
@@ -75,7 +144,7 @@ function xmlToVar(xml, id)
     var episodesElement = xmlDoc.getElementsByTagName("episode");
     var titleElement = xmlDoc.getElementsByTagName("title");
 
-    for (var i = 0; i < episodesElement.length; i++)
+    for (let i = 0; i < episodesElement.length; i++)
     {
         var ep = { number: episodesElement[i].getAttribute("num"), title: titleElement[i].childNodes[0].nodeValue };
         episodeList.push(ep);
@@ -86,7 +155,7 @@ function xmlToVar(xml, id)
     var taskElement = xmlDoc.getElementsByTagName("task");
     var personElement = xmlDoc.getElementsByTagName("person");
 
-    for (var i = 0; i < staffElement.length; i++)
+    for (let i = 0; i < staffElement.length; i++)
     {
         var staff = { task: taskElement[i].childNodes[0].nodeValue, name: personElement[i].childNodes[0].nodeValue };
         staffList.push(staff);
@@ -109,49 +178,18 @@ function xmlToVar(xml, id)
     };
 }
 
-function loadAnimeInfoPage(element, info , defaultGenres)
+function infoToOutput(title, images, genres, altTitles, element, currentAnimeId , defaultGenres , extraInfo , isUsingCache)
 {
-
-    var url = "http://cdn.animenewsnetwork.com/encyclopedia/api.xml?anime=" + info.id;
-    var title = info.name;
-    var images = info.images;
-    var genres = info.genres;
-    var altTitles = info.altTitles;
-
-    document.getElementById("animeLoading").style.display = "block";
-    document.getElementById("animeLoading").innerHTML = "Loading anime information...";
-    WinJS.xhr(
+    if(cacheEnabled && !isUsingCache)
     {
-            url: url
-    })
-    .done(
-        function completed(result)
+        var animeDetails = {title:title,images:images,genres:genres,altTitles:altTitles,defaultGenres:defaultGenres,extraInfo:extraInfo};
+        fs.writeFile(path, JSON.stringify(animeDetails), function (error)
         {
-            if (result.status === 200)
-            {
-                var response = result.responseText;
+            if (error)
+                console.log(error);
+        });
+    }
 
-                var currentAnimeId = info.id;
-
-                //checks if anime is in the user's list and does the necessary updates
-                User.isInList(currentAnimeId);
-
-                AnimeXmlToOutput(response, title, images, genres, altTitles, element, currentAnimeId , defaultGenres);
-            }
-            else
-            {
-                Util.outputError("Can't connect to the ANN's server.");
-            }
-        },
-        function error(err)
-        {
-            Util.outputError("Can't connect to the ANN's server.");
-        }
-    );
-}
-
-function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, currentAnimeId , defaultGenres)
-{
     //outside of this "sub" page
     document.getElementById("animeLoading").style.display = "none";
     document.getElementById("animeName").innerHTML = title;
@@ -174,13 +212,11 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
     var titleSpan = element.querySelector("#title");
     var epAcc = element.querySelector("#epAccuracy");
 
-    if (animeInfo != null && titleSpan != null && epAcc != null)
+    if (animeInfo !== null && titleSpan !== null && epAcc !== null)
     {
         animeInfo.style.display = "flex";
         titleSpan.innerHTML = title;
         epAcc.innerHTML = "";
-
-        var variables = xmlToVar(xml, currentAnimeId);
 
         try
         {
@@ -203,10 +239,10 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
         try
         {
-            if (variables.plot != undefined)
+            if (extraInfo.plot !== undefined)
             {
                 element.querySelector("#synopsis").style.display = "block";
-                element.querySelector("#plot").innerHTML = variables.plot;
+                element.querySelector("#plot").innerHTML = extraInfo.plot;
             }
             else
             {
@@ -232,14 +268,14 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
                     //If person clicks too fast, it will be null if it's unloading at the same time
                     var cover = element.querySelector("#cover img");
-                    if (cover != null)
+                    if (cover !== null)
                     {
                         cover.setAttribute("src", image);
                     }
                 },
                 function (error)
                 {
-                    if (element.querySelector("#cover img") != null)
+                    if (element.querySelector("#cover img") !== null)
                     {
                         element.querySelector("#cover img").setAttribute("src", "");
                         element.querySelector("#cover img ").setAttribute("alt", "");
@@ -249,7 +285,7 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
         catch (e)
         {
-            if (element.querySelector("#cover img") != null)
+            if (element.querySelector("#cover img") !== null)
             {
                 element.querySelector("#cover img").setAttribute("src", "");
                 element.querySelector("#cover img").setAttribute("alt", "");
@@ -262,13 +298,13 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
             if (genres.length > 0)
             {
                 element.querySelector("#genres").style.display = "block";
-                for (var i = 0; i < genres.length; i++)
+                for (let i = 0; i < genres.length; i++)
                 {
-                    for (var j = 0; j < defaultGenres.length; j++)
+                    for (let j = 0; j < defaultGenres.length; j++)
                     {
                         if (genres[i] == j)
                         {
-                            var li = document.createElement("li");
+                            let li = document.createElement("li");
                             li.appendChild(document.createTextNode(defaultGenres[j]));
                             element.querySelector("#genresList").appendChild(li);
                         }
@@ -288,23 +324,23 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
         try
         {
-            var episodes = variables.episodeList;
+            var episodes = extraInfo.episodeList;
             element.querySelector("#episodes").style.display = "block";
             if (episodes.length > 0)
             {
-                for (var i = 0; i < episodes.length; i++)
+                for (let i = 0; i < episodes.length; i++)
                 {
-                    var li = document.createElement("li");
+                    let li = document.createElement("li");
                     li.appendChild(document.createTextNode(episodes[i].number + ". " + episodes[i].title));
                     element.querySelector("#episodesList").appendChild(li);
                 }
             }
 
-            if (variables.episodes != undefined)
+            if (extraInfo.episodes !== undefined)
             {
-                element.querySelector("#totalEpisodes").innerHTML = "Total Episodes: " + variables.episodes;
-                document.getElementsByClassName("maxEpNum")[0].innerHTML = variables.episodes;
-                document.getElementsByClassName("maxEpNum")[1].innerHTML = variables.episodes;
+                element.querySelector("#totalEpisodes").innerHTML = "Total Episodes: " + extraInfo.episodes;
+                document.getElementsByClassName("maxEpNum")[0].innerHTML = extraInfo.episodes;
+                document.getElementsByClassName("maxEpNum")[1].innerHTML = extraInfo.episodes;
             }
             else
             {
@@ -329,11 +365,11 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
         try
         {
-            var date = variables.dates;
+            var date = extraInfo.dates;
             if (date.length > 0)
             {
                 element.querySelector("#dates").style.display = "block";
-                for (var i = 0; i < date.length; i++)
+                for (let i = 0; i < date.length; i++)
                 {
                     var li = document.createElement("li");
                     li.appendChild(document.createTextNode(date[i]));
@@ -354,13 +390,13 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
         try
         {
-            if (variables.rating != undefined)
+            if (extraInfo.rating !== undefined)
             {
                 element.querySelector("#ratings").style.display = "block";
 
                 //rounds the rating before outputting it
-                element.querySelector("#ratingItem").innerHTML = "" + Math.round(variables.rating * 100) / 100 + "/10";
-                element.querySelector("#userVotes").innerHTML = "(" + variables.numberOfVotes + " votes" + ") (ANN)";
+                element.querySelector("#ratingItem").innerHTML = "" + Math.round(extraInfo.rating * 100) / 100 + "/10";
+                element.querySelector("#userVotes").innerHTML = "(" + extraInfo.numberOfVotes + " votes" + ") (ANN)";
             }
             else
             {
@@ -376,13 +412,13 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
         try
         {
-            var opening = variables.opening;
+            var opening = extraInfo.opening;
             if (opening.length > 0)
             {
                 element.querySelector("#ops").style.display = "block";
-                for (var i = 0; i < opening.length; i++)
+                for (let i = 0; i < opening.length; i++)
                 {
-                    var li = document.createElement("li");
+                    let li = document.createElement("li");
                     li.appendChild(document.createTextNode(opening[i]));
                     element.querySelector("#opList").appendChild(li);
                 }
@@ -401,13 +437,13 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
         try
         {
-            var ending = variables.ending;
+            var ending = extraInfo.ending;
             if (ending.length > 0)
             {
-                for (var i = 0; i < ending.length; i++)
+                for (let i = 0; i < ending.length; i++)
                 {
                     element.querySelector("#eds").style.display = "block";
-                    var li = document.createElement("li");
+                    let li = document.createElement("li");
                     li.appendChild(document.createTextNode(ending[i]));
                     element.querySelector("#edList").appendChild(li);
                 }
@@ -425,17 +461,17 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
         }
 
         //TODO add the code for each
-        //var themes = variables.themes;
+        //var themes = extraInfo.themes;
 
         try
         {
-            var staff = variables.staffList;
+            var staff = extraInfo.staffList;
             if (staff.length > 0)
             {
                 element.querySelector("#staff").style.display = "block";
-                for (var i = 0; i < staff.length; i++)
+                for (let i = 0; i < staff.length; i++)
                 {
-                    var li = document.createElement("li");
+                    let li = document.createElement("li");
                     li.appendChild(document.createTextNode(staff[i].task + ": " + staff[i].name));
                     element.querySelector("#staffList").appendChild(li);
                 }
@@ -454,13 +490,13 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
         try
         {
-            var characters = variables.castList;
+            var characters = extraInfo.castList;
             if (characters.length > 0)
             {
                 element.querySelector("#characters").style.display = "block";
-                for (var i = 0; i < characters.length; i++)
+                for (let i = 0; i < characters.length; i++)
                 {
-                    var li = document.createElement("li");
+                    let li = document.createElement("li");
                     li.appendChild(document.createTextNode(characters[i]));
                     element.querySelector("#characterList").appendChild(li);
                 }
@@ -489,10 +525,10 @@ function AnimeXmlToOutput(xml, title, images, genres, altTitles, element, curren
 
             setTimeout(function ()
             {
-                if (element.querySelector("#clipboard") != undefined)
+                if (element.querySelector("#clipboard") !== undefined)
                     element.querySelector("#clipboard").winControl.hide();
             }, 2500);
-        }
+        };
     }
     catch (e)
     {

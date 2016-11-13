@@ -1,5 +1,4 @@
-﻿
-var fileName = "settings.json";
+﻿var fileName = "settings.json";
 
 WinJS.Namespace.define("Settings",
     {

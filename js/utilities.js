@@ -1,5 +1,4 @@
-﻿
-WinJS.Namespace.define("Util",
+﻿WinJS.Namespace.define("Util",
     {
         outputError: function (string)
         {
@@ -43,7 +42,7 @@ WinJS.Namespace.define("Util",
         },
         isInFilter: function (include, exclude, genres)
         {
-            for (var i = 0; i < exclude.length; i++)
+            for (let i = 0; i < exclude.length; i++)
             {
                 if (isInArray(exclude[i], genres))
                 {
@@ -51,7 +50,7 @@ WinJS.Namespace.define("Util",
                 }
             }
 
-            for (var i = 0; i < include.length; i++)
+            for (let i = 0; i < include.length; i++)
             {
                 if (!isInArray(include[i], genres))
                 {
@@ -112,8 +111,8 @@ WinJS.Namespace.define("Util",
                     document.getElementById("animeInfo").style.width = "90%";
                     document.getElementById("titles").style.width = "85%";
 
-                    var elementsByClass = document.getElementsByClassName("block");
-                    for (var i = 0; i < elementsByClass.length; i++)
+                    let elementsByClass = document.getElementsByClassName("block");
+                    for (let i = 0; i < elementsByClass.length; i++)
                     {
                         elementsByClass[i].style.minWidth = "90%";
                     }
@@ -121,8 +120,8 @@ WinJS.Namespace.define("Util",
                 }
                 else if (WinJS.Navigation.location == "pages/genreSearch/genreSearch.html" || WinJS.Navigation.location == "pages/search/search.html")
                 {
-                    var elementsByClass = document.getElementsByClassName("smallGridItemInfo");
-                    for (var i = 0; i < elementsByClass.length; i++)
+                    let elementsByClass = document.getElementsByClassName("smallGridItemInfo");
+                    for (let i = 0; i < elementsByClass.length; i++)
                     {
                         elementsByClass[i].style.width = "200px";
                     }
@@ -211,9 +210,9 @@ function isInArray(value, array)
 
 function searchInTitle(anime, regex)
 {
-    return anime.match(regex) || anime.replace(/[ōö]/g, "o").match(regex) || anime.replace(/[ō]/g, "ou").match(regex) || anime.replace(/ū/g, "u").match(regex) || anime.replace(/ū/g, "uu").match(regex)
-        || anime.replace(/[éē]/g, "e").match(regex) || anime.replace(/ā/g, "a").match(regex) || anime.replace(/ī/g, "i").match(regex) || anime.replace(/-/g, " ").match(regex) || anime.replace(/-/g, "").match(regex)
-        || anime.replace(/ /g, "").match(regex) || anime.replace(/:/g, "").match(regex) || anime.replace(/[☆★♪]/g, " ").match(regex)
+    return anime.match(regex) || anime.replace(/[ōö]/g, "o").match(regex) || anime.replace(/[ō]/g, "ou").match(regex) || anime.replace(/ū/g, "u").match(regex) || anime.replace(/ū/g, "uu").match(regex) || 
+    anime.replace(/[éē]/g, "e").match(regex) || anime.replace(/ā/g, "a").match(regex) || anime.replace(/ī/g, "i").match(regex) || anime.replace(/-/g, " ").match(regex) || anime.replace(/-/g, "").match(regex) || 
+    anime.replace(/ /g, "").match(regex) || anime.replace(/:/g, "").match(regex) || anime.replace(/[☆★♪]/g, " ").match(regex);
 }
 
 function escapeRegex(s)

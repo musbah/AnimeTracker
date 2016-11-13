@@ -1,6 +1,4 @@
-﻿"use strict";
-
-var currentAnimeId;
+﻿var currentAnimeId;
 var animeList;
 var trieAnimeTree;
 var animeInFilter;
@@ -88,7 +86,7 @@ function initializeEventListeners()
 
     document.getElementById("randomAnime").addEventListener("click", randomId, false);
     document.getElementById("animeGenreSearch").addEventListener("click", animeGenreSearch, false);
-    document.getElementById("filter").addEventListener("click", filterFlyout, false)
+    document.getElementById("filter").addEventListener("click", filterFlyout, false);
     document.getElementById("FilterFlyout").addEventListener("beforehide", filterFlyoutHide, false);
     //Create filter checkboxes for random
     createFilterElementsRandom();
@@ -150,16 +148,16 @@ function keyDown(event)
         else
         {
             var dropList = document.getElementById("dropList");
-            if (dropList.innerHTML != "")
+            if (dropList.innerHTML !== "")
             {
                 var element = dropList.getElementsByClassName("selectedDrop");
 
                 if (event.keyCode == 38)
                 {
                     //up arrow
-                    if (element[0] != undefined)
+                    if (element[0] !== undefined)
                     {
-                        if (element[0].previousSibling == null)
+                        if (element[0].previousSibling === null)
                         {
                             element[0].className = "";
                             dropList.lastElementChild.className = "selectedDrop";
@@ -170,8 +168,8 @@ function keyDown(event)
                             element[0].previousSibling.className = "selectedDrop";
                             element[0].nextSibling.className = "";
 
-                            var elementBounding = element[0].getBoundingClientRect();
-                            var searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
+                            let elementBounding = element[0].getBoundingClientRect();
+                            let searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
 
                             if (elementBounding.top < searchDropDownBounding.top)
                             {
@@ -184,13 +182,13 @@ function keyDown(event)
                 else if (event.keyCode == 40)
                 {
                     //down arrow
-                    if (element.length == 0)
+                    if (element.length === 0)
                     {
                         dropList.firstElementChild.className = "selectedDrop";
                     }
                     else
                     {
-                        if (element[0].nextSibling == null)
+                        if (element[0].nextSibling === null)
                         {
                             element[0].className = "";
                             dropList.firstElementChild.className = "selectedDrop";
@@ -201,8 +199,8 @@ function keyDown(event)
                             element[0].nextSibling.className = "selectedDrop";
                             element[0].className = "";
 
-                            var elementBounding = element[0].getBoundingClientRect();
-                            var searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
+                            let elementBounding = element[0].getBoundingClientRect();
+                            let searchDropDownBounding = document.getElementById("searchDropDown").getBoundingClientRect();
 
                             if (elementBounding.bottom > searchDropDownBounding.bottom)
                             {
@@ -305,7 +303,7 @@ function searchInput(eventObject)
 {
     focusOnSearch = true;
 
-    if (animeList != null)
+    if (animeList !== null)
     {
         var searchDropDown = document.getElementById("searchDropDown");
         var dropList = document.getElementById("dropList");
@@ -333,7 +331,7 @@ function searchInput(eventObject)
             };
         }
 
-        if (matches.length == 0)
+        if (matches.length === 0)
             searchDropDown.style.display = "none";
     }
 }
@@ -343,19 +341,19 @@ function searchSubmit()
     var text = document.getElementById("searchBoxId").value;
     document.getElementById("searchDropDown").style.display = "none";
 
-    if (text.trim() != "" && animeList != null)
+    if (text.trim() !== "" && animeList !== null)
     {
         //limit is 20 just to make sure similar titles won't be confused
         var match = trieAnimeTree.getMatches(text, { limit: 20 });
 
         var predefined = false;
-        for (var i = 0; i < match.length; i++)
+        for (let i = 0; i < match.length; i++)
         {
             if (match[i].name == text)
             {
                 predefined = true;
 
-                var options = {anime:animeList[match[i].id] , defaultGenres:defaultGenres};
+                let options = {anime:animeList[match[i].id] , defaultGenres:defaultGenres};
                 WinJS.Navigation.navigate("pages/anime/anime.html", options);
                 currentAnimeId = animeList[match[i].id].id;
                 break;
@@ -364,7 +362,7 @@ function searchSubmit()
 
         if (!predefined)
         {
-            var options = { query: text, animeList: animeList, defaultGenres: defaultGenres };
+            let options = { query: text, animeList: animeList, defaultGenres: defaultGenres };
             WinJS.Navigation.navigate("pages/search/search.html", options);
         }
     }
@@ -476,14 +474,14 @@ function randomId()
     else
     {
         var item;
-        if (animeInFilter != null)
+        if (animeInFilter !== null)
         {
             if (animeInFilter.length > 0)
             {
                 //pick random array item
                 item = animeInFilter[Math.floor(Math.random() * animeInFilter.length)];
 
-                var options = {anime:item , defaultGenres:defaultGenres};
+                let options = {anime:item , defaultGenres:defaultGenres};
                 WinJS.Navigation.navigate("pages/anime/anime.html", options);
                 currentAnimeId = item.id;
             }
@@ -510,7 +508,7 @@ function randomId()
             //pick random array item
             item = noErotica[Math.floor(Math.random() * noErotica.length)];
 
-            var options = {anime:item , defaultGenres:defaultGenres};
+            let options = {anime:item , defaultGenres:defaultGenres};
             WinJS.Navigation.navigate("pages/anime/anime.html", options);
             currentAnimeId = item.id;
         }

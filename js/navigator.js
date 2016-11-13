@@ -1,7 +1,4 @@
-﻿
-"use strict";
-
-var nav = WinJS.Navigation;
+﻿var nav = WinJS.Navigation;
 
 WinJS.Namespace.define("Application", {
     PageControlNavigator: WinJS.Class.define(
@@ -23,7 +20,7 @@ WinJS.Namespace.define("Application", {
                 {
                     e.removeEventListener(eventName, handler);
                 });
-            };
+            }
 
             addRemovableEventListener(nav, 'navigating', this._navigating.bind(this), false);
             addRemovableEventListener(nav, 'navigated', this._navigated.bind(this), false);

@@ -1,5 +1,4 @@
-﻿
-const fs = require('fs');
+﻿const fs = require('fs');
 const remote = require('electron').remote;
 const electronApp = remote.app;
 const folder = electronApp.getPath("userData");

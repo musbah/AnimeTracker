@@ -1,6 +1,4 @@
-﻿"use strict";
-
-WinJS.UI.Pages.define("pages/genreSearch/genreSearch.html",
+﻿WinJS.UI.Pages.define("pages/genreSearch/genreSearch.html",
 {
     // This function is called whenever a user navigates to this page. It
     // populates the page elements with the app's data.
@@ -26,14 +24,14 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
     }
     else
     {
-        if (animeInFilter == null)
+        if (animeInFilter === null)
         {
             //remove erotica by default
             var exclude = [5];
             var include = [];
             var noErotica = [];
 
-            for (var i = 0; i < animeList.length; i++)
+            for (let i = 0; i < animeList.length; i++)
             {
                 if (Util.isInFilter(include, exclude, animeList[i].genres))
                 {
@@ -47,7 +45,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
         //The list of results found
         var list = [];
 
-        for (var i = 0; i < animeInFilter.length; i++)
+        for (let i = 0; i < animeInFilter.length; i++)
         {
 
             var object =
@@ -56,12 +54,12 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
                     title: animeInFilter[i].name
                 };
 
-            if (animeInFilter[i].images[0] != null)
+            if (animeInFilter[i].images[0] !== null)
             {
                 object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeInFilter[i].images[0] + "')";
             }
 
-            if (animeInFilter[i].altTitles[0] != null)
+            if (animeInFilter[i].altTitles[0] !== null)
             {
                 object.altTitle = animeInFilter[i].altTitles[0].title;
             }
@@ -72,7 +70,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
 
             object.allGenres = "";
 
-            if (animeInFilter[i].genres != null)
+            if (animeInFilter[i].genres !== null)
             {
                 for (var b = 0; b < animeInFilter[i].genres.length; b++)
                 {
@@ -95,7 +93,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
                 }
             }
 
-            list.push(object)
+            list.push(object);
         }
 
         if (animeInFilter.length > 0)

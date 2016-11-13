@@ -1,7 +1,4 @@
-﻿
-"use strict";
-
-WinJS.UI.Pages.define("pages/search/search.html",
+﻿WinJS.UI.Pages.define("pages/search/search.html",
 {
     // This function is called whenever a user navigates to this page. It
     // populates the page elements with the app's data.
@@ -22,22 +19,22 @@ function loadSearchPage(query, element , animeList , defaultGenres)
     //The list of results found
     var list = [];
 
-    for (var i = 0; i < animeList.length; i++)
+    for (let i = 0; i < animeList.length; i++)
     {
         if (Util.isEqualToAnime(animeList[i].name, query))
         {
-            var object =
+            let object =
                 {
                     id: animeList[i].id,
                     title: animeList[i].name
                 };
 
-            if (animeList[i].images[0] != null)
+            if (animeList[i].images[0] !== null)
             {
                 object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeList[i].images[0] + "')";
             }
 
-            if (animeList[i].altTitles[0] != null)
+            if (animeList[i].altTitles[0] !== null)
             {
                 object.altTitle = animeList[i].altTitles[0].title;
             }
@@ -48,11 +45,11 @@ function loadSearchPage(query, element , animeList , defaultGenres)
 
             object.allGenres = "";
 
-            if (animeList[i].genres != null)
+            if (animeList[i].genres !== null)
             {
-                for (var b = 0; b < animeList[i].genres.length; b++)
+                for (let b = 0; b < animeList[i].genres.length; b++)
                 {
-                    for (var j = 0; j < defaultGenres.length; j++)
+                    for (let j = 0; j < defaultGenres.length; j++)
                     {
                         if (animeList[i].genres[b] == j)
                         {
@@ -71,15 +68,15 @@ function loadSearchPage(query, element , animeList , defaultGenres)
                 }
             }
 
-            list.push(object)
+            list.push(object);
         }
         else
         {
-            for (var j = 0; j < animeList[i].altTitles.length; j++)
+            for (let j = 0; j < animeList[i].altTitles.length; j++)
             {
                 if (Util.isEqualToAnime(animeList[i].altTitles[j].title, query))
                 {
-                    var object =
+                    let object =
                         {
                             id: animeList[i].id,
                             title: animeList[i].name,
@@ -93,7 +90,7 @@ function loadSearchPage(query, element , animeList , defaultGenres)
 
                     object.allGenres = "";
 
-                    if (animeList[i].genres != null)
+                    if (animeList[i].genres !== null)
                     {
                         for (var b = 0; b < animeList[i].genres.length; b++)
                         {
