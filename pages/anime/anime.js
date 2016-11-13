@@ -12,7 +12,7 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
     // populates the page elements with the app's data.
     ready: function (element, options)
     {
-        path = folder +"/"+ options.anime.id + ".json";
+        path = folder +"/cachedAnime/"+ options.anime.id + ".json";
 
         //check if a cache exists
         //TODO: check if cache is out of date

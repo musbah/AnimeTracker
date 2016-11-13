@@ -15,6 +15,7 @@ function loadSearchPage(query, element , animeList , defaultGenres)
 {
     document.getElementById("addAnime").style.display = "none";
     document.getElementById("editAnime").style.display = "none";
+    document.getElementById("animeLoading").style.display = "none";
 
     //The list of results found
     var list = [];

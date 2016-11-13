@@ -16,6 +16,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
 
     document.getElementById("addAnime").style.display = "none";
     document.getElementById("editAnime").style.display = "none";
+    document.getElementById("animeLoading").style.display = "none";
 
     if (animeList.length <= 0)
     {
