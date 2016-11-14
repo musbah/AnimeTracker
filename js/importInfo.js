@@ -1,6 +1,6 @@
-﻿var WinJS = require('winjs');
-var Default = require('./default.js');
-var Util = require('./utilities.js');
+﻿const WinJS = require('winjs');
+const Default = require('./default.js');
+const Util = require('./utilities.js');
 
 const fs = require('fs');
 const remote = require('electron').remote;

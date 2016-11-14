@@ -1,4 +1,4 @@
-﻿var WinJS = require('winjs');
+﻿const WinJS = require('winjs');
 
 const fs = require('fs');
 const remote = require('electron').remote;

@@ -1,7 +1,7 @@
-﻿var WinJS = require('winjs');
-var Util = require('./utilities.js');
-var User = require('./user.js');
-var Import = require('./importInfo.js');
+﻿const WinJS = require('winjs');
+const Util = require('./utilities.js');
+const User = require('./user.js');
+const Import = require('./importInfo.js');
 
 var currentAnimeId;
 var animeList;

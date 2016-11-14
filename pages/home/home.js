@@ -1,5 +1,5 @@
-﻿var WinJS = require('winjs');
-var Util = require('../../js/utilities.js');
+﻿const WinJS = require('winjs');
+const Util = require('../../js/utilities.js');
 
 WinJS.UI.Pages.define("pages/home/home.html",
 {
