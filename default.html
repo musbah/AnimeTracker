@@ -49,8 +49,8 @@
                 <span data-win-bind="innerText: name"></span>
             </div>
             <div class="note">
-                <span class="noteDetail"><span class="color">Current Ep:</span> <span data-win-bind="innerText: episode"></span></span><br />
-                <span class="noteDetail"><span class="color">Status:</span> <span data-win-bind="innerText: status"></span></span><br />
+                <span class="noteDetail"><span class="color">Current Ep:</span> <span data-win-bind="innerText: episode"></span></span><br>
+                <span class="noteDetail"><span class="color">Status:</span> <span data-win-bind="innerText: status"></span></span><br>
                 <span class="noteDetail"><span class="color">Note:</span> <span data-win-bind="innerText: comment"></span></span>
                 <span class="smallListItemId" data-win-bind="innerText: id" hidden></span>
             </div>
@@ -58,37 +58,38 @@
     </div>
 
     <div id="AddAnimeFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Add anime flyout}">
-        Name: <span id="animeName"></span><br />
+        Name: <span id="animeName"></span><br>
         Status: <select id="animeStatus">
             <option value="Watching">Watching</option>
             <option value="On Hold">On Hold</option>
             <option value="Dropped">Dropped</option>
             <option value="Completed">Completed</option>
             <option value="To Watch">To Watch</option>
-        </select><br />
-        Episode: <input id="epField" type="number" />/<span class="maxEpNum"></span><br />
-        Comment(optional):<br /><textarea id="animeComment" cols="25" rows="5"></textarea><br />
+        </select><br>
+        Episode: <input id="epField" type="number" />/<span class="maxEpNum"></span><br>
+        Comment(optional):<br><textarea id="animeComment" cols="25" rows="5"></textarea><br>
         <button id="addAnimeSubmit">Submit</button>
     </div>
 
     <div id="EditAnimeFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Edit anime flyout}">
-        Name: <span id="animeEditName"></span><br />
+        Name: <span id="animeEditName"></span><br>
         Status: <select id="animeEditStatus">
             <option value="Watching">Watching</option>
             <option value="On Hold">On Hold</option>
             <option value="Dropped">Dropped</option>
             <option value="Completed">Completed</option>
             <option value="To Watch">To Watch</option>
-        </select><br />
-        Episode: <input id="epEditField" type="number" />/<span class="maxEpNum"></span><br />
-        Comment(optional):<br /><textarea id="animeEditComment" cols="25" rows="5"></textarea><br />
+        </select><br>
+        Episode: <input id="epEditField" type="number" />/<span class="maxEpNum"></span><br>
+        Comment(optional):<br><textarea id="animeEditComment" cols="25" rows="5"></textarea><br>
         <button id="editAnimeSubmit">Submit</button><button id="removeAnimeSubmit">Remove</button>
     </div>
 
     <div id="SettingsFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Settings flyout}">
-        This settings pop up is still under construction, will hopefully be done with it soon.<br /><br />
-        This application has been created by Musbah Sinno<br />
-        The source for most of the data is Anime News Network.
+        This settings pop up is still under construction, will hopefully be done with it soon.<br><br>
+        This application has been created by Musbah Sinno<br>
+        The source for most of the data is Anime News Network.<br><br>
+        To contact me send an email to <a href="mailto:support@myanimetracker.com" target="_top">support@myanimetracker.com</a>
     </div>
 
     <div id="rightContainer">
