@@ -22,18 +22,7 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
         //TODO: check if cache is out of date
         if(cacheEnabled && fs.existsSync(path))
         {
-            fs.readFile(path, function (error, data)
-            {
-                if(error)
-                {
-                    console.log(error);
-                }
-                else
-                {
-                    var animeCache = JSON.parse(data);
-                    infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id , animeCache.defaultGenres , animeCache.extraInfo , true);
-                }
-            });
+            readCache(element,options);
         }
         else
         {
@@ -44,6 +33,22 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
         Util.showBackButton();
     }
 });
+
+function readCache(element,options)
+{
+    fs.readFile(path, function (error, data)
+    {
+        if (error)
+        {
+            console.log(error);
+        }
+        else
+        {
+            var animeCache = JSON.parse(data);
+            infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id, animeCache.defaultGenres, animeCache.extraInfo, true);
+        }
+    });
+}
 
 function loadAnimeInfoPage(element, info , defaultGenres)
 {
@@ -77,11 +82,13 @@ function loadAnimeInfoPage(element, info , defaultGenres)
             else
             {
                 Util.outputError("Can't connect to the ANN's server.");
+                readCache(element,{anime:info,defaultGenres:defaultGenres});
             }
         },
         function error(err)
         {
             Util.outputError("Can't connect to the ANN's server.");
+            readCache(element,{anime:info,defaultGenres:defaultGenres});
             console.log(err)
         }
     );
