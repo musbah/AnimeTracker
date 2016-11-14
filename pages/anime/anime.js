@@ -1,4 +1,8 @@
-﻿const fs = require('fs');
+﻿var WinJS = require('winjs');
+var Util = require('../../js/utilities.js');
+var User = require('../../js/user.js');
+
+const fs = require('fs');
 const remote = require('electron').remote;
 const electronApp = remote.app;
 const folder = electronApp.getPath("userData");
@@ -26,7 +30,7 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
                 }
                 else
                 {
-                    animeCache = JSON.parse(data);
+                    var animeCache = JSON.parse(data);
                     infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id , animeCache.defaultGenres , animeCache.extraInfo , true);
                 }
             });
@@ -68,7 +72,7 @@ function loadAnimeInfoPage(element, info , defaultGenres)
                 //checks if anime is in the user's list and does the necessary updates
                 User.isInList(currentAnimeId);
 
-                infoToOutput(title, images, genres, altTitles, element, currentAnimeId , defaultGenres , xmlToVar(response, currentAnimeId), false);
+                infoToOutput(title, images, genres, altTitles, element, currentAnimeId , defaultGenres , xmlToVar(response), false);
             }
             else
             {
@@ -78,11 +82,12 @@ function loadAnimeInfoPage(element, info , defaultGenres)
         function error(err)
         {
             Util.outputError("Can't connect to the ANN's server.");
+            console.log(err)
         }
     );
 }
 
-function xmlToVar(xml, id)
+function xmlToVar(xml)
 {
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(xml, "text/xml");
@@ -281,6 +286,7 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
                         element.querySelector("#cover img ").setAttribute("alt", "");
                         element.querySelector("#cover").className += " not-available";
                     }
+                    console.log(error);
                 });
         }
         catch (e)

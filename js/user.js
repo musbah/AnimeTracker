@@ -1,11 +1,13 @@
-﻿const fs = require('fs');
+﻿var WinJS = require('winjs');
+
+const fs = require('fs');
 const remote = require('electron').remote;
 const electronApp = remote.app;
 const folder = electronApp.getPath("userData");
 const fileName = "userList.json";
 
 
-WinJS.Namespace.define("User",
+module.exports =
     {
         initializeUserList: function ()
         {
@@ -240,7 +242,7 @@ WinJS.Namespace.define("User",
                 }
             });
         }
-    });
+    }
 
 function listLoad(list)
 {

@@ -1,4 +1,6 @@
-﻿WinJS.Namespace.define("Util",
+﻿var WinJS = require('winjs');
+
+module.exports =
     {
         outputError: function (string)
         {
@@ -193,7 +195,7 @@
                  }*/
             }
         }
-    });
+    };
 
 function isInArray(value, array)
 {
@@ -210,9 +212,9 @@ function isInArray(value, array)
 
 function searchInTitle(anime, regex)
 {
-    return anime.match(regex) || anime.replace(/[ōö]/g, "o").match(regex) || anime.replace(/[ō]/g, "ou").match(regex) || anime.replace(/ū/g, "u").match(regex) || anime.replace(/ū/g, "uu").match(regex) || 
-    anime.replace(/[éē]/g, "e").match(regex) || anime.replace(/ā/g, "a").match(regex) || anime.replace(/ī/g, "i").match(regex) || anime.replace(/-/g, " ").match(regex) || anime.replace(/-/g, "").match(regex) || 
-    anime.replace(/ /g, "").match(regex) || anime.replace(/:/g, "").match(regex) || anime.replace(/[☆★♪]/g, " ").match(regex);
+    return anime.match(regex) || anime.replace(/[ōö]/g, "o").match(regex) || anime.replace(/[ō]/g, "ou").match(regex) || anime.replace(/ū/g, "u").match(regex) || anime.replace(/ū/g, "uu").match(regex) ||
+        anime.replace(/[éē]/g, "e").match(regex) || anime.replace(/ā/g, "a").match(regex) || anime.replace(/ī/g, "i").match(regex) || anime.replace(/-/g, " ").match(regex) || anime.replace(/-/g, "").match(regex) ||
+        anime.replace(/ /g, "").match(regex) || anime.replace(/:/g, "").match(regex) || anime.replace(/[☆★♪]/g, " ").match(regex);
 }
 
 function escapeRegex(s)

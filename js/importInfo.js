@@ -1,16 +1,20 @@
-﻿const fs = require('fs');
+﻿var WinJS = require('winjs');
+var Default = require('./default.js');
+var Util = require('./utilities.js');
+
+const fs = require('fs');
 const remote = require('electron').remote;
 const electronApp = remote.app;
 const folder = electronApp.getPath("userData");
 const fileName = "anime.json";
 
-WinJS.Namespace.define("Import",
+module.exports =
     {
         initializeAnimeFile: function (internet)
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
                     //file does not exist
                     if (internet)
@@ -27,7 +31,7 @@ WinJS.Namespace.define("Import",
                     var oldInfo = JSON.parse(data);
 
                     //Uses the old file's data before checking for updates (for the program to run smoothly)
-                    MyApp.Functions.loadAnimeList(oldInfo);
+                    Default.loadAnimeList(oldInfo);
 
                     if (internet)
                     {
@@ -43,7 +47,7 @@ WinJS.Namespace.define("Import",
                 }
             });
         }
-    });
+    }
 
 function getInfo(type, lastIndex)
 {
@@ -82,7 +86,7 @@ function partialCompleted(result, oldInfo)
                 //the output is the whole db.
                 if (json.hasOwnProperty('items'))
                 {
-                    MyApp.Functions.loadAnimeList(json);
+                    Default.loadAnimeList(json);
                     document.getElementById("status").innerHTML = "";
                     fs.writeFile(folder + "/" + fileName, output, function (error)
                     {
@@ -98,7 +102,7 @@ function partialCompleted(result, oldInfo)
                     }
 
                     oldInfo.lastIndex += i;
-                    MyApp.Functions.loadAnimeList(oldInfo);
+                    Default.loadAnimeList(oldInfo);
                     document.getElementById("status").innerHTML = "";
                     fs.writeFile(folder + "/" + fileName, JSON.stringify(oldInfo), function (error)
                     {
@@ -114,20 +118,18 @@ function partialCompleted(result, oldInfo)
         catch (e)
         {
             Util.outputError("Can't update local database, server update might be in progress");
-            console.log(e);
         }
     }
     else
     {
         Util.outputError("Can't update local database");
-        console.log(e);
     }
 }
 
 function error(err)
 {
     Util.outputError("Can't update local database");
-    console.log(e);
+    console.log(err);
 }
 
 function allCompleted(result)
@@ -137,7 +139,7 @@ function allCompleted(result)
         try
         {
             var output = result.responseText;
-            MyApp.Functions.loadAnimeList(JSON.parse(output));
+            Default.loadAnimeList(JSON.parse(output));
             document.getElementById("status").innerHTML = "";
 
             fs.writeFile(folder + "/" + fileName, output, { flag: 'wx' }, function (error)

@@ -1,12 +1,15 @@
-﻿var currentAnimeId;
+﻿var WinJS = require('winjs');
+var Util = require('./utilities.js');
+var User = require('./user.js');
+var Import = require('./importInfo.js');
+
+var currentAnimeId;
 var animeList;
 var trieAnimeTree;
 var animeInFilter;
 var listView;
 var mouseOnDropDown = false;
 var focusOnSearch = false;
-
-var app = WinJS.Application;
 
 //default genres to use everywhere
 var defaultGenres = ["Action", "Adventure", "Comedy", "Drama", "Slice of life", "Erotica", "Fantasy", "Magic", "Supernatural",
@@ -36,8 +39,6 @@ window.onload = function ()
 
     initializeEventListeners();
 };
-
-app.start();
 
 function initializeEventListeners()
 {
@@ -81,7 +82,7 @@ function initializeEventListeners()
     document.getElementById("hideListInBar").addEventListener("click", hideList, false);
 
     listView = document.getElementById("listView");
-    listView.addEventListener("iteminvoked", Lists.itemOnListClicked, false);
+    listView.addEventListener("iteminvoked", ListEvents.itemOnListClicked, false);
     listView.addEventListener("selectionchanged", listViewSelection, false);
 
     document.getElementById("randomAnime").addEventListener("click", randomId, false);
@@ -109,33 +110,34 @@ function initializeEventListeners()
     Util.resizeFunction();
 }
 
-WinJS.Namespace.define("MyApp.Functions",
+
+function loadAnimeList(info)
 {
-    loadAnimeList: function (info)
+    animeList = info.items;
+
+    var trieAnimeList = [];
+    //Making objects out of every alt title (to make trie easier)
+    for (var i = 0, len = animeList.length; i < len; i++)
     {
-        animeList = info.items;
+        var anime = { id: i, name: animeList[i].name };
+        trieAnimeList.push(anime);
 
-        var trieAnimeList = [];
-        //Making objects out of every alt title (to make trie easier)
-        for (var i = 0, len = animeList.length; i < len; i++)
+        for (let j = 0; j < animeList[i].altTitles.length; j++)
         {
-            var anime = { id: i, name: animeList[i].name };
-            trieAnimeList.push(anime);
-
-            for (let j = 0; j < animeList[i].altTitles.length; j++)
-            {
-                var animeAlt = { id: i, name: animeList[i].altTitles[j].title };
-                trieAnimeList.push(animeAlt);
-            }
+            var animeAlt = { id: i, name: animeList[i].altTitles[j].title };
+            trieAnimeList.push(animeAlt);
         }
-
-        var createTrie = require('autosuggest-trie');
-        trieAnimeTree = createTrie(trieAnimeList, 'name');
     }
-});
+
+    var createTrie = require('autosuggest-trie');
+    trieAnimeTree = createTrie(trieAnimeList, 'name');
+}
+module.exports.loadAnimeList = loadAnimeList;
+
 
 function keyDown(event)
 {
+    var searchBox = document.getElementById("searchBoxId");
     //When focus is on searchbar (to move on drop down)
     if (focusOnSearch)
     {
@@ -290,7 +292,7 @@ function toggleChange()
     this.parentNode.className += " selected ";
 }
 
-function searchFocusOut(event)
+function searchFocusOut()
 {
     focusOnSearch = false;
     if (!mouseOnDropDown)
@@ -443,7 +445,8 @@ function hideList()
     document.getElementById("showListInBar").style.display = "block";
 }
 
-WinJS.Namespace.define("Lists", {
+var ListEvents =
+{
     itemOnListClicked: function (eventObject)
     {
         eventObject.detail.itemPromise.done(function (invokedItem)
@@ -462,7 +465,8 @@ WinJS.Namespace.define("Lists", {
             }
         });
     },
-});
+};
+module.exports.ListEvents = ListEvents;
 
 function randomId()
 {

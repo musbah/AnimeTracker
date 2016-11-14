@@ -1,11 +1,11 @@
 ﻿var fileName = "settings.json";
 
-WinJS.Namespace.define("Settings",
+module.exports =
+{
+    initializeUserSettings: function ()
     {
-        initializeUserSettings: function ()
-        {
-        }
-    });
+    }
+};
 
 function deleteUserList()
 {

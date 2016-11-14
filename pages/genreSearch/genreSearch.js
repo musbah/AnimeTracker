@@ -1,10 +1,14 @@
-﻿WinJS.UI.Pages.define("pages/genreSearch/genreSearch.html",
+﻿var WinJS = require('winjs');
+var Util = require('../../js/utilities.js');
+var Default = require('../../js/default.js');
+
+WinJS.UI.Pages.define("pages/genreSearch/genreSearch.html",
 {
     // This function is called whenever a user navigates to this page. It
     // populates the page elements with the app's data.
     ready: function (element, options)
     {
-        element.querySelector("#gridView").winControl.addEventListener("iteminvoked", Lists.itemOnListClicked, false);
+        element.querySelector("#gridView").winControl.addEventListener("iteminvoked", Default.ListEvents.itemOnListClicked, false);
         loadSearchPage(element, options.animeInFilter, options.animeList, options.defaultGenres);
         document.getElementById("noRandom").style.display = "none";
         Util.showBackButton();
