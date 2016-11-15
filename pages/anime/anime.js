@@ -1,7 +1,7 @@
 ﻿const WinJS = require('winjs');
 const Util = require('../../js/utilities.js');
 const User = require('../../js/user.js');
-const Settings = require('./settings.js');
+const Settings = require('../../js/settings.js');
 
 const fs = require('fs');
 const remote = require('electron').remote;
@@ -54,7 +54,7 @@ function readCache(element,options,checkDate)
 
                 //check if the cache duration set by user expired
                 //24*60*60 (1 day) = 86400
-                if(animeCache.date + (Settings.days*86400)  < unixTimeNow)
+                if(animeCache.date + (Settings.days*86400) > unixTimeNow)
                 {
                     document.getElementById("status").innerText = "Cached Version";
                     infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id, animeCache.defaultGenres, animeCache.extraInfo, true);
