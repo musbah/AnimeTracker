@@ -14,19 +14,19 @@ module.exports =
             var userList = {};
             userList.list = [];
 
-            fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), { flag: 'wx' }, function (error)
+            fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), { flag: 'wx' }, function (err)
             {
-                if (error)
-                    console.log(error);
+                if (err)
+                    console.log(err);
             });
         },
         addToList: function (id, name, episode, comment, status)
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
-                    console.log(error);
+                    console.log(err);
                 }
                 else
                 {
@@ -36,10 +36,10 @@ module.exports =
 
                     var length = userList.list.push(item);
 
-                    fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (error)
+                    fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (err)
                     {
-                        if (error)
-                            console.log(error);
+                        if (err)
+                            console.log(err);
                     });
 
                     listLoad(userList.list);
@@ -49,11 +49,11 @@ module.exports =
         },
         editList: function (id, episode, comment, status)
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
-                    console.log(error);
+                    console.log(err);
                 }
                 else
                 {
@@ -67,10 +67,10 @@ module.exports =
                             userList.list[i].comment = comment;
                             userList.list[i].status = status;
 
-                            fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (error)
+                            fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (err)
                             {
-                                if (error)
-                                    console.log(error);
+                                if (err)
+                                    console.log(err);
                             });
 
                             listLoad(userList.list);
@@ -83,11 +83,11 @@ module.exports =
         },
         isInList: function (id)
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
-                    console.log(error);
+                    console.log(err);
                 }
                 else
                 {
@@ -112,11 +112,11 @@ module.exports =
         },
         removeSingleFromList: function (id)
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
-                    console.log(error);
+                    console.log(err);
                 }
                 else
                 {
@@ -131,10 +131,10 @@ module.exports =
                         }
                     }
 
-                    fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (error)
+                    fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (err)
                     {
-                        if (error)
-                            console.log(error);
+                        if (err)
+                            console.log(err);
                     });
 
                     listLoad(userList.list);
@@ -144,11 +144,11 @@ module.exports =
         },
         removeManyFromList: function (itemIndices, currentAnimeId)
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
-                    console.log(error);
+                    console.log(err);
                 }
                 else
                 {
@@ -175,10 +175,10 @@ module.exports =
 
                     userList.list = newList;
 
-                    fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (error)
+                    fs.writeFile(folder + "/" + fileName, JSON.stringify(userList), function (err)
                     {
-                        if (error)
-                            console.log(error);
+                        if (err)
+                            console.log(err);
                     });
 
                     listLoad(userList.list);
@@ -188,11 +188,11 @@ module.exports =
         },
         loadUserList: function ()
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
-                    console.log(error);
+                    console.log(err);
                 }
                 else
                 {
@@ -204,11 +204,11 @@ module.exports =
         },
         sortUserList: function (sort)
         {
-            fs.readFile(folder + "/" + fileName, function (error, data)
+            fs.readFile(folder + "/" + fileName, function (err, data)
             {
-                if (error)
+                if (err)
                 {
-                    console.log(error);
+                    console.log(err);
                 }
                 else
                 {

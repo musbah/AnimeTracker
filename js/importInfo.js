@@ -88,9 +88,9 @@ function partialCompleted(result, oldInfo)
                 {
                     Default.loadAnimeList(json);
                     document.getElementById("status").innerHTML = "";
-                    fs.writeFile(folder + "/" + fileName, output, function (error)
+                    fs.writeFile(folder + "/" + fileName, output, function (err)
                     {
-                        console.log(error);
+                        console.log(err);
                     });
                 }
                 else
@@ -104,9 +104,9 @@ function partialCompleted(result, oldInfo)
                     oldInfo.lastIndex += i;
                     Default.loadAnimeList(oldInfo);
                     document.getElementById("status").innerHTML = "";
-                    fs.writeFile(folder + "/" + fileName, JSON.stringify(oldInfo), function (error)
+                    fs.writeFile(folder + "/" + fileName, JSON.stringify(oldInfo), function (err)
                     {
-                        console.log(error);
+                        console.log(err);
                     });
                 }
             }
@@ -142,9 +142,9 @@ function allCompleted(result)
             Default.loadAnimeList(JSON.parse(output));
             document.getElementById("status").innerHTML = "";
 
-            fs.writeFile(folder + "/" + fileName, output, { flag: 'wx' }, function (error)
+            fs.writeFile(folder + "/" + fileName, output, { flag: 'wx' }, function (err)
             {
-                console.log(error);
+                console.log(err);
             });
         }
         catch (e)

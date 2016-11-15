@@ -1,6 +1,7 @@
 ﻿const WinJS = require('winjs');
 const Util = require('../../js/utilities.js');
 const User = require('../../js/user.js');
+const Settings = require('./settings.js');
 
 const fs = require('fs');
 const remote = require('electron').remote;
@@ -8,7 +9,7 @@ const electronApp = remote.app;
 const folder = electronApp.getPath("userData");
 
 var path;
-var cacheEnabled = false;
+var cacheEnabled = Settings.isCacheEnabled;
 
 WinJS.UI.Pages.define("pages/anime/anime.html",
 {
@@ -22,7 +23,7 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
         //TODO: check if cache is out of date
         if(cacheEnabled && fs.existsSync(path))
         {
-            readCache(element,options);
+            readCache(element,options,true);
         }
         else
         {
@@ -30,22 +31,44 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
         }
 
         document.getElementById("noRandom").style.display = "none";
+        document.getElementById("status").innerText = "";
         Util.showBackButton();
     }
 });
 
-function readCache(element,options)
+function readCache(element,options,checkDate)
 {
-    fs.readFile(path, function (error, data)
+    fs.readFile(path, function (err, data)
     {
-        if (error)
+        if (err)
         {
-            console.log(error);
+            console.log(err);
         }
         else
         {
             var animeCache = JSON.parse(data);
-            infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id, animeCache.defaultGenres, animeCache.extraInfo, true);
+
+            if(checkDate)
+            {
+                var unixTimeNow = Math.round(new Date().getTime() / 1000);
+
+                //check if the cache duration set by user expired
+                //24*60*60 (1 day) = 86400
+                if(animeCache.date + (Settings.days*86400)  < unixTimeNow)
+                {
+                    document.getElementById("status").innerText = "Cached Version";
+                    infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id, animeCache.defaultGenres, animeCache.extraInfo, true);
+                }
+                else
+                {
+                    loadAnimeInfoPage(element, options.anime, options.defaultGenres);    
+                }
+            }
+            else
+            {
+                document.getElementById("status").innerText = "Cached Version";
+                infoToOutput(animeCache.title, animeCache.images, animeCache.genres, animeCache.altTitles, element, options.anime.id, animeCache.defaultGenres, animeCache.extraInfo, true);
+            }
         }
     });
 }
@@ -82,13 +105,13 @@ function loadAnimeInfoPage(element, info , defaultGenres)
             else
             {
                 Util.outputError("Can't connect to the ANN's server.");
-                readCache(element,{anime:info,defaultGenres:defaultGenres});
+                readCache(element,{anime:info,defaultGenres:defaultGenres},false);
             }
         },
         function error(err)
         {
             Util.outputError("Can't connect to the ANN's server.");
-            readCache(element,{anime:info,defaultGenres:defaultGenres});
+            readCache(element,{anime:info,defaultGenres:defaultGenres},false);
             console.log(err)
         }
     );
@@ -194,11 +217,14 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
 {
     if(cacheEnabled && !isUsingCache)
     {
-        var animeDetails = {title:title,images:images,genres:genres,altTitles:altTitles,defaultGenres:defaultGenres,extraInfo:extraInfo};
-        fs.writeFile(path, JSON.stringify(animeDetails), function (error)
+        //unix time in seconds
+        var unixTime = Math.round(new Date().getTime() / 1000);
+
+        var animeDetails = {title:title,images:images,genres:genres,altTitles:altTitles,defaultGenres:defaultGenres,extraInfo:extraInfo,date:unixTime};
+        fs.writeFile(path, JSON.stringify(animeDetails), function (err)
         {
-            if (error)
-                console.log(error);
+            if (err)
+                console.log(err);
         });
     }
 
@@ -295,7 +321,7 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
                         console.log(result.status);
                     }
                 },
-                function (error)
+                function (err)
                 {
                     if (element.querySelector("#cover img") !== null)
                     {
@@ -303,7 +329,7 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
                         element.querySelector("#cover img ").setAttribute("alt", "");
                         element.querySelector("#cover").className += " not-available";
                     }
-                    console.log(error);
+                    console.log(err);
                 });
             }
             else
@@ -558,7 +584,7 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
 
             setTimeout(function ()
             {
-                if (element.querySelector("#clipboard") !== undefined)
+                if (element.querySelector("#clipboard") !== undefined && element.querySelector("#clipboard") !== null)
                     element.querySelector("#clipboard").winControl.hide();
             }, 2500);
         };

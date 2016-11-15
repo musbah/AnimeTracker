@@ -2,6 +2,7 @@
 const Util = require('./utilities.js');
 const User = require('./user.js');
 const Import = require('./importInfo.js');
+const Settings = require('./settings.js');
 
 var currentAnimeId;
 var animeList;
@@ -38,6 +39,7 @@ window.onload = function ()
     WinJS.Navigation.navigate("pages/home/home.html");
 
     initializeEventListeners();
+    Settings.loadSettings();
 };
 
 function initializeEventListeners()
