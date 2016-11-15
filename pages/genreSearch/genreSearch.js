@@ -61,7 +61,7 @@ function loadSearchPage(element,animeInFilter,animeList,defaultGenres)
                     title: animeInFilter[i].name
                 };
 
-            if (animeInFilter[i].images[0] !== null)
+            if (animeInFilter[i].images[0] !== undefined)
             {
                 object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeInFilter[i].images[0] + "')";
             }

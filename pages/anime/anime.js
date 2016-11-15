@@ -271,18 +271,28 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
         {
             element.querySelector("#cover img").setAttribute("src", "");
             element.querySelector("#cover img").setAttribute("alt", "Loading image...");
-            var imageUrl = "http://cdn.animenewsnetwork.com/thumbnails/" + images[0];
-            WinJS.xhr({ url: imageUrl, responseType: "blob" })
-                .done(
-                function (request)
-                {
-                    var image = URL.createObjectURL(request.response);
 
-                    //If person clicks too fast, it will be null if it's unloading at the same time
-                    var cover = element.querySelector("#cover img");
-                    if (cover !== null)
+            if (images[0] !== undefined)
+            {
+                var imageUrl = "http://cdn.animenewsnetwork.com/thumbnails/" + images[0];
+                WinJS.xhr({ url: imageUrl, responseType: "blob" })
+                .done(
+                function (result)
+                {
+                    if (result.status === 200)
                     {
-                        cover.setAttribute("src", image);
+                        var image = URL.createObjectURL(result.response);
+
+                        //If person clicks too fast, it will be null if it's unloading at the same time
+                        var cover = element.querySelector("#cover img");
+                        if (cover !== null)
+                        {
+                            cover.setAttribute("src", image);
+                        }
+                    }
+                    else
+                    {
+                        console.log(result.status);
                     }
                 },
                 function (error)
@@ -295,6 +305,16 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
                     }
                     console.log(error);
                 });
+            }
+            else
+            {
+                if (element.querySelector("#cover img") !== null)
+                {
+                    element.querySelector("#cover img").setAttribute("src", "");
+                    element.querySelector("#cover img ").setAttribute("alt", "");
+                    element.querySelector("#cover").className += " not-available";
+                }    
+            }
         }
         catch (e)
         {

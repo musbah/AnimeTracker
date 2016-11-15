@@ -34,7 +34,7 @@ function loadSearchPage(query, element , animeList , defaultGenres)
                     title: animeList[i].name
                 };
 
-            if (animeList[i].images[0] !== null)
+            if (animeList[i].images[0] !== undefined)
             {
                 object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeList[i].images[0] + "')";
             }
@@ -88,7 +88,7 @@ function loadSearchPage(query, element , animeList , defaultGenres)
                             altTitle: animeList[i].altTitles[j].title
                         };
 
-                    if (animeList[i].images[0] != "undefined")
+                    if (animeList[i].images[0] !== "undefined")
                     {
                         object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeList[i].images[0] + "')";
                     }
