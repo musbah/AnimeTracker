@@ -21,6 +21,7 @@ window.onload = function ()
 {
     document.getElementById("status").innerHTML = "Initializing User List...";
     User.initializeUserList();
+    Settings.loadSettings();
 
     //checks if an internet connection is available
     if (navigator.onLine)
@@ -39,7 +40,6 @@ window.onload = function ()
     WinJS.Navigation.navigate("pages/home/home.html");
 
     initializeEventListeners();
-    Settings.loadSettings();
 };
 
 function initializeEventListeners()
@@ -104,9 +104,13 @@ function initializeEventListeners()
     document.getElementById("cmdEdit").addEventListener("click", editSelections, false);
 
     document.getElementById("settingsButton").addEventListener("click", showSettingsFlyout, false);
+    document.getElementById("SettingsFlyout").addEventListener("beforehide", hideSettingsFlyout, false);
 
     document.getElementById("animeListSortDropDown").addEventListener("change", animeListSort, false);
 
+    document.getElementById("cacheChecked").addEventListener("click", cacheCheckedClick, false);
+    document.getElementById("cacheNotChecked").addEventListener("click", cacheCheckedClick, false);
+    
     document.addEventListener('keydown', keyDown);
 
     Util.resizeFunction();
@@ -388,6 +392,11 @@ function showSettingsFlyout()
 {
     var addButton = document.getElementById("settingsButton");
     document.getElementById("SettingsFlyout").winControl.show(addButton);
+}
+
+function hideSettingsFlyout()
+{
+    Settings.saveSettings();
 }
 
 function filterFlyout()
@@ -676,4 +685,17 @@ function createFilterElementsRandom()
 function animeListSort()
 {
     User.sortUserList(document.getElementById("animeListSortDropDown").value);
+}
+
+function cacheCheckedClick(e)
+{
+    cacheChecked(e.target);
+}
+
+function cacheChecked(element)
+{
+    if (element === document.getElementById("cacheChecked"))
+        document.getElementById("cacheDuration").disabled = false;
+    else
+        document.getElementById("cacheDuration").disabled = true;   
 }

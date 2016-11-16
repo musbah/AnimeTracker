@@ -9,7 +9,7 @@ const electronApp = remote.app;
 const folder = electronApp.getPath("userData");
 
 var path;
-var cacheEnabled = Settings.isCacheEnabled;
+var cacheEnabled;
 
 WinJS.UI.Pages.define("pages/anime/anime.html",
 {
@@ -17,10 +17,10 @@ WinJS.UI.Pages.define("pages/anime/anime.html",
     // populates the page elements with the app's data.
     ready: function (element, options)
     {
+        cacheEnabled = Settings.isCacheEnabled;
         path = folder +"/cachedAnime/"+ options.anime.id + ".json";
 
         //check if a cache exists
-        //TODO: check if cache is out of date
         if(cacheEnabled && fs.existsSync(path))
         {
             readCache(element,options,true);
