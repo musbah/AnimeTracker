@@ -19,13 +19,6 @@ var defaultGenres = ["Action", "Adventure", "Comedy", "Drama", "Slice of life", 
 // Initialize your application here.
 window.onload = function ()
 {
-    //I hid the flyouts because they broke the design on application load times
-    //show them again
-    document.getElementById("AddAnimeFlyout").style.display = "initial";
-    document.getElementById("EditAnimeFlyout").style.display = "initial";
-    document.getElementById("SettingsFlyout").style.display = "initial";
-    WinJS.UI.processAll();
-
     document.getElementById("status").innerHTML = "Initializing User List...";
     User.initializeUserList();
     Settings.loadSettings();
@@ -44,11 +37,14 @@ window.onload = function ()
     //Picking the default page
     WinJS.Navigation.navigate("pages/home/home.html");
 
+    WinJS.UI.processAll();
     initializeEventListeners();
 };
 
 function initializeEventListeners()
 {
+    document.getElementById("versionNumber").innerText = "Version " + require('electron').remote.app.getVersion();
+
     window.addEventListener("resize", Util.resizeFunction);
     Util.resizeFunction();
 
