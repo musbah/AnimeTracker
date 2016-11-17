@@ -23,6 +23,71 @@ body {
     overflow: auto;
 }
 
+#listView {
+    display:none;
+    height:70%;
+}
+
+#hideListInBar {
+    display:none;
+}
+
+#noRandom {
+    display:none;
+}
+
+#animeLoading {
+    display:none;
+}
+
+#AddAnimeFlyout {
+    visibility: hidden;
+}
+
+#EditAnimeFlyout{
+    visibility: hidden;
+}
+
+#SettingsFlyout{
+    visibility: hidden;
+}
+
+.addOrEditAnime {
+    display: none;
+}
+
+.smallListItem {
+    display: none;
+    height:100%;
+}
+
+.toggle label{
+    cursor: pointer;
+    display: block;
+    float: left;
+    padding: .2em .4em;
+    margin-bottom: .2em;
+    background-color: #ccc;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    border-color: #666;
+}
+
+#searchDropDown {
+    display: none;
+    position: absolute;
+    left: 0;
+    top:100%;
+    width:35%;
+    max-height: 300px;
+    border:1px solid black;
+    border-left:none;
+    border-top: none;
+    background-color:white;
+    z-index: 3;
+    overflow: auto;
+}
+
 #searchArea {
     position: relative;
     width:100%;
@@ -40,21 +105,6 @@ body {
     color:rgba(0, 0, 0, 0.6);
     z-index: 3;
     text-indent: 5px;
-}
-
-#searchDropDown {
-    display: none;
-    position: absolute;
-    left: 0;
-    top:100%;
-    width:35%;
-    max-height: 300px;
-    border:1px solid black;
-    border-left:none;
-    border-top: none;
-    background-color:white;
-    z-index: 3;
-    overflow: auto;
 }
 
 #dropList {
@@ -177,10 +227,6 @@ body {
     background-color:#999999;
 }
 
-#animeLoading {
-    display:none;
-}
-
 #rightContainer {
     width:80%;
     float:left;
@@ -194,21 +240,12 @@ body {
     height:100%;
 }
 
-.addOrEditAnime {
-    display: none;
-}
-
 #epField {
     width:30px;
 }
 
 #epEditField{
     width:30px;
-}
-
-.smallListItem {
-    display: none;
-    height:100%;
 }
 
 button:hover, input[type=button]:hover, input[type=reset]:hover, input[type=file]::-ms-browse:hover {
@@ -222,31 +259,6 @@ button, input[type=button], input[type=submit], input[type=reset], input[type=fi
 	color: black;
 	min-width:40px;
 	min-height:30px;
-}
-
-.win-ui-dark input[type]:-ms-input-placeholder, input[type]:-ms-input-placeholder, .win-ui-dark textarea:-ms-input-placeholder, textarea:-ms-input-placeholder {
-	color:rgba(0, 0, 0, 0.6);
-}
-
-input[type=text]:hover, input[type=password]:hover, input[type=email]:hover, input[type=number]:hover, input[type=tel]:hover, input[type=url]:hover, input[type=search]:hover, textarea:hover, select:hover, .win-textarea:hover, input:hover::-ms-check {
-	background-color:rgba(255, 255, 255, 0.87);
-	border-color:rgba(0, 0, 0, 0.44);
-	color:black;
-}
-
-input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel], input[type=url], input[type=search], select, textarea, .win-textarea, input::-ms-check {
-	background-color:rgba(255, 255, 255, 0.8);
-	border-color:rgba(0, 0, 0, 0.27);
-	color:black;
-}
-
-.win-listview .win-container .win-itembox {
-    background-color:rgba(255, 255, 255, 0);
-    height:auto;
-}
-
-.win-listview .win-listlayout .win-container {
-    height:auto;
 }
 
 .smallListInfo .title {
@@ -277,22 +289,9 @@ input[type=text], input[type=password], input[type=email], input[type=number], i
     font-weight:bold;
 }
 
-#listView {
-    display:none;
-    height:70%;
-}
-
-#hideListInBar {
-    display:none;
-}
-
 #contenthost {
     height: 100%;
     width: 100%;
-}
-
-#noRandom {
-    display:none;
 }
 
 .win-splitviewcommand-button, .win-splitviewcommand-splitbutton {
@@ -314,18 +313,6 @@ input[type=text], input[type=password], input[type=email], input[type=number], i
     margin-right:4px;
     padding-top:2px;
     padding-bottom:2px;
-}
-
-.toggle label{
-    cursor: pointer;
-    display: block;
-    float: left;
-    padding: .2em .4em;
-    margin-bottom: .2em;
-    background-color: #ccc;
-    border-style: solid;
-    border-width: 1px 1px 1px 0;
-    border-color: #666;
 }
 
 .toggle label:first-child {
@@ -353,4 +340,29 @@ input[type=text], input[type=password], input[type=email], input[type=number], i
 
 #cacheDuration {
     width: 40px;
+}
+
+.win-ui-dark input[type]:-ms-input-placeholder, input[type]:-ms-input-placeholder, .win-ui-dark textarea:-ms-input-placeholder, textarea:-ms-input-placeholder {
+	color:rgba(0, 0, 0, 0.6);
+}
+
+input[type=text]:hover, input[type=password]:hover, input[type=email]:hover, input[type=number]:hover, input[type=tel]:hover, input[type=url]:hover, input[type=search]:hover, textarea:hover, select:hover, .win-textarea:hover, input:hover::-ms-check {
+	background-color:rgba(255, 255, 255, 0.87);
+	border-color:rgba(0, 0, 0, 0.44);
+	color:black;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel], input[type=url], input[type=search], select, textarea, .win-textarea, input::-ms-check {
+	background-color:rgba(255, 255, 255, 0.8);
+	border-color:rgba(0, 0, 0, 0.27);
+	color:black;
+}
+
+.win-listview .win-container .win-itembox {
+    background-color:rgba(255, 255, 255, 0);
+    height:auto;
+}
+
+.win-listview .win-listlayout .win-container {
+    height:auto;
 }

@@ -14,7 +14,7 @@ let mainWindow;
 function createWindow()
 {
 	// Create the browser window.
-	mainWindow = new BrowserWindow({ width: 900, height: 800 , minHeight:500, minWidth: 450 , title:"Anime Tracker"});
+	mainWindow = new BrowserWindow({ width: 900, height: 800 , minHeight:500, minWidth: 450 , title:"Anime Tracker" , backgroundColor: '#C9C9C9',show: false});
 
 	// and load the index.html of the app.
 	mainWindow.loadURL(url.format({
@@ -24,7 +24,12 @@ function createWindow()
 	}));
 
 	// Open the DevTools.
-	mainWindow.webContents.openDevTools();
+	//mainWindow.webContents.openDevTools();
+
+	mainWindow.once('ready-to-show', () => 
+	{
+     	mainWindow.show();
+	})
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function ()

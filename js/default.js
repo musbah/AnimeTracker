@@ -19,6 +19,13 @@ var defaultGenres = ["Action", "Adventure", "Comedy", "Drama", "Slice of life", 
 // Initialize your application here.
 window.onload = function ()
 {
+    //I hid the flyouts because they broke the design on application load times
+    //show them again
+    document.getElementById("AddAnimeFlyout").style.display = "initial";
+    document.getElementById("EditAnimeFlyout").style.display = "initial";
+    document.getElementById("SettingsFlyout").style.display = "initial";
+    WinJS.UI.processAll();
+
     document.getElementById("status").innerHTML = "Initializing User List...";
     User.initializeUserList();
     Settings.loadSettings();
@@ -34,8 +41,6 @@ window.onload = function ()
         Import.initializeAnimeFile(false);
     }
 
-    WinJS.UI.processAll();
-
     //Picking the default page
     WinJS.Navigation.navigate("pages/home/home.html");
 
@@ -45,6 +50,7 @@ window.onload = function ()
 function initializeEventListeners()
 {
     window.addEventListener("resize", Util.resizeFunction);
+    Util.resizeFunction();
 
     //doing it with css doesn't initialise the toolbar correctly
     document.getElementById("listHeader").style.display = "none";
@@ -112,8 +118,6 @@ function initializeEventListeners()
     document.getElementById("cacheNotChecked").addEventListener("click", cacheCheckedClick, false);
     
     document.addEventListener('keydown', keyDown);
-
-    Util.resizeFunction();
 }
 
 
