@@ -3,15 +3,7 @@ An application that helps you look for anime with the ability to add anime to a 
 Most of the anime information has been provided by Anime News Network's API.
 
 # Download
-Latest Version 0.0.6:
-
-32bit:  
-  [Windows](http://myanimetracker.com/downloads/AnimeTracker-0.0.6-ia32-win.7z)  
-  [Linux](http://myanimetracker.com/downloads/AnimeTracker-0.0.6-ia32-linux.7z)  
-
-64bit:  
-  [Windows](http://myanimetracker.com/downloads/AnimeTracker-0.0.6-win.7z)  
-  [Linux](http://myanimetracker.com/downloads/AnimeTracker-0.0.6-linux.7z)  
+Check [releases page](https://github.com/musbah/AnimeTracker/releases)
 
 #About
 This anime has been on the windows store for a while now ([Store Link](https://www.microsoft.com/en-us/store/apps/anime-tracker/9nblggh2rfwg)), I've just been bored recently and though I would make it cross platform so here it is.
