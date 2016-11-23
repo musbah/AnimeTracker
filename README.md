@@ -3,7 +3,7 @@ An application that helps you look for anime with the ability to add anime to a 
 Most of the anime information has been provided by Anime News Network's API.
 
 # Download
-Check [releases page](https://github.com/musbah/AnimeTracker/releases)
+Check [download page](http://myanimetracker.com/download.html)
 
 #About
 This anime has been on the windows store for a while now ([Store Link](https://www.microsoft.com/en-us/store/apps/anime-tracker/9nblggh2rfwg)), I've just been bored recently and though I would make it cross platform so here it is.
