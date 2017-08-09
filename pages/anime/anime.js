@@ -2,6 +2,7 @@
 const Util = require('../../js/utilities.js');
 const User = require('../../js/user.js');
 const Settings = require('../../js/settings.js');
+const Default = require('../../js/default.js');
 
 const fs = require('fs');
 const remote = require('electron').remote;
@@ -10,6 +11,8 @@ const folder = electronApp.getPath("userData");
 
 var path;
 var cacheEnabled;
+
+var annUrlToUse = Default.annUrlToUse();
 
 WinJS.UI.Pages.define("pages/anime/anime.html",
 {
@@ -76,7 +79,7 @@ function readCache(element,options,checkDate)
 function loadAnimeInfoPage(element, info , defaultGenres)
 {
 
-    var url = "http://cdn.animenewsnetwork.com/encyclopedia/api.xml?anime=" + info.id;
+    var url = "http://cdn."+annUrlToUse+"/encyclopedia/api.xml?anime=" + info.id;
     var title = info.name;
     var images = info.images;
     var genres = info.genres;
@@ -237,7 +240,7 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
     {
         var moreInfo = document.createElement("a");
         moreInfo.innerHTML = "More information at Anime News Network";
-        moreInfo.href = "http://www.animenewsnetwork.com/encyclopedia/anime.php?id=" + currentAnimeId;
+        moreInfo.href = "http://www."+annUrlToUse+"/encyclopedia/anime.php?id=" + currentAnimeId;
         moreInfo.target = "_blank";
         document.getElementById("moreInfo").appendChild(moreInfo);
     }
@@ -300,7 +303,7 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
 
             if (images[0] !== undefined)
             {
-                var imageUrl = "http://cdn.animenewsnetwork.com/thumbnails/" + images[0];
+                var imageUrl = "http://cdn."+annUrlToUse+"/thumbnails/" + images[0];
                 WinJS.xhr({ url: imageUrl, responseType: "blob" })
                 .done(
                 function (result)

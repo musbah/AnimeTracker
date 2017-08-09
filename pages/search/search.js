@@ -2,6 +2,8 @@
 const Util = require('../../js/utilities.js');
 const Default = require('../../js/default.js');
 
+var annUrlToUse = Default.annUrlToUse();
+
 WinJS.UI.Pages.define("pages/search/search.html",
 {
     // This function is called whenever a user navigates to this page. It
@@ -36,7 +38,7 @@ function loadSearchPage(query, element , animeList , defaultGenres)
 
             if (animeList[i].images[0] !== undefined)
             {
-                object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeList[i].images[0] + "')";
+                object.image = "url('" + "http://cdn."+annUrlToUse+"/thumbnails/" + animeList[i].images[0] + "')";
             }
 
             if (animeList[i].altTitles[0] !== null && animeList[i].altTitles[0] !== undefined)
@@ -90,7 +92,7 @@ function loadSearchPage(query, element , animeList , defaultGenres)
 
                     if (animeList[i].images[0] !== "undefined")
                     {
-                        object.image = "url('" + "http://cdn.animenewsnetwork.com/thumbnails/" + animeList[i].images[0] + "')";
+                        object.image = "url('" + "http://cdn."+annUrlToUse+"/thumbnails/" + animeList[i].images[0] + "')";
                     }
 
                     object.allGenres = "";

@@ -9,6 +9,7 @@ var animeList;
 var trieAnimeTree;
 var animeInFilter;
 var listView;
+var annUrlToUse;
 var mouseOnDropDown = false;
 var focusOnSearch = false;
 
@@ -18,6 +19,35 @@ var defaultGenres = ["Action", "Adventure", "Comedy", "Drama", "Slice of life", 
 
 // Initialize your application here.
 window.onload = function ()
+{
+    //Check which anime news network domain to use
+    WinJS.xhr(
+    {
+        url: "animenewsnetwork.com/encyclopedia/api.php"
+    })
+    .done(
+        function completed(result)
+        {
+            if (result.status === 200)
+            {
+                annUrlToUse = "animenewsnetwork.com";
+                load();
+            }
+            else
+            {
+                annUrlToUse = "animenewsnetwork.cc";
+                load();
+            }
+        },
+        function error(err)
+        {
+            annUrlToUse = "animenewsnetwork.cc";
+            load();
+        }
+    );
+};
+
+function load()
 {
     document.getElementById("status").innerHTML = "Initializing User List...";
     User.initializeUserList();
@@ -39,7 +69,7 @@ window.onload = function ()
 
     WinJS.UI.processAll();
     initializeEventListeners();
-};
+}
 
 function initializeEventListeners()
 {
@@ -139,6 +169,9 @@ function loadAnimeList(info)
     trieAnimeTree = createTrie(trieAnimeList, 'name');
 }
 module.exports.loadAnimeList = loadAnimeList;
+module.exports.annUrlToUse = function() {
+  return annUrlToUse;
+};
 
 
 function keyDown(event)
