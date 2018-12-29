@@ -1,20 +1,19 @@
 {
   "name": "AnimeTracker",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Anime Tracker",
-  "homepage": "myanimetracker.com",
   "main": "main.js",
   "license": "MIT",
   "author": {
-    "name": "Musbah Sinno",
-    "email": "support@myanimetracker.com"
+    "name": "Musbah Sinno"
   },
   "dependencies": {
     "autosuggest-trie": "^2.0.0",
     "winjs": "^4.4.0"
   },
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "electron-builder": "^20.38.4"
   },
   "scripts": {
     "start": "electron .",

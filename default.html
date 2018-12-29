@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>Anime Tracker</title>
@@ -14,6 +15,7 @@
     <link href="css/default.css" rel="stylesheet" />
 
 </head>
+
 <body>
     <div id="leftContainer">
         <div id="navBarContainer" class="nav-commands">
@@ -25,10 +27,7 @@
             <div id="editAnime" class="addOrEditAnime" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Edit list', icon: 'favorite'}"></div>
             <div id="settingsButton" data-win-control="WinJS.UI.SplitViewCommand" data-win-options="{ label: 'Settings', icon: 'settings'}"></div>
         </div>
-        <div id="listView"
-             class="win-selectionstylefilled"
-             data-win-control="WinJS.UI.ListView"
-             data-win-options="{
+        <div id="listView" class="win-selectionstylefilled" data-win-control="WinJS.UI.ListView" data-win-options="{
             tapBehavior : 'invokeOnly',
             layout: { type: WinJS.UI.ListLayout }
             }">
@@ -77,12 +76,12 @@
         </div>
 
         <div id="SettingsFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Settings flyout}">
-            Anime page cache: <input type="radio" name="isCacheEnabled" id="cacheChecked" value="1" checked> Enable <input type="radio" name="isCacheEnabled" id="cacheNotChecked"> Disable <br>
+            Anime page cache: <input type="radio" name="isCacheEnabled" id="cacheChecked" value="1" checked> Enable
+            <input type="radio" name="isCacheEnabled" id="cacheNotChecked"> Disable <br>
             Cache Duration: <input type="text" id="cacheDuration"> day(s)<br><br>
             This application has been created by Musbah Sinno<br>
             The source for most of the data is Anime News Network.<br><br>
             <span id="versionNumber"></span><br>
-            To contact me send an email to <a href="mailto:support@myanimetracker.com" target="_top">support@myanimetracker.com</a>
         </div>
     </div>
 
@@ -105,8 +104,11 @@
         <div id="searchArea">
             <div id="status"></div>
             <input type="text" id="searchBoxId" placeholder="Search"><button id="searchButton">&#xE094;</button>
-            <div id="searchDropDown"><ul id="dropList"></ul></div>
-            <button id="randomAnime">Random</button><button id="animeGenreSearch">Search by genres</button> <div id="line-separatorId"></div> <button id="filter">Filters</button>
+            <div id="searchDropDown">
+                <ul id="dropList"></ul>
+            </div>
+            <button id="randomAnime">Random</button><button id="animeGenreSearch">Search by genres</button>
+            <div id="line-separatorId"></div> <button id="filter">Filters</button>
         </div>
 
         <div id="FilterFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Filter flyout}">
@@ -119,6 +121,7 @@
 
     </div>
 
-    <iframe src="http://myanimetracker.com/analytics.html" style="display:none;visibility:hidden;"></iframe>
+    <iframe src="104.248.190.168/analytics.html" style="display:none;visibility:hidden;"></iframe>
 </body>
+
 </html>

@@ -12,7 +12,7 @@ WinJS.UI.Pages.define("pages/home/home.html",
         document.getElementById("animeLoading").innerText = "Getting the latest news";
         WinJS.xhr(
         {
-                url: "http://myanimetracker.com/downloads/news.html"
+                url: "http://104.248.190.168/downloads/news.html"
         })
         .done(complete,error);
     }

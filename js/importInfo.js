@@ -55,11 +55,11 @@ function getInfo(type, lastIndex)
 
     if (type == "all")
     {
-        url = "http://myanimetracker.com/getJson.php";
+        url = "http://104.248.190.168/getJson.php";
     }
     else
     {
-        url = "http://myanimetracker.com/getJson.php?lastIndex=" + parseInt(lastIndex);
+        url = "http://104.248.190.168/getJson.php?lastIndex=" + parseInt(lastIndex);
     }
 
     var promise = WinJS.xhr(
