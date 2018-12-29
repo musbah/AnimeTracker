@@ -3,11 +3,11 @@ An application that helps you look for anime with the ability to add anime to a 
 Most of the anime information has been provided by Anime News Network's API.
 
 # Run
-If you just need to run this without having to build it (assuming npm,electron and all the dependencies are installed):
+If you just need to run this without having to build it (assuming npm and electron are installed):
 npm start
 
 # Build
-You can use any electron build tool, I use ([Electron Builder](https://github.com/electron-userland/electron-builder)) and run the below:
+You can use any electron build tool, I use ([Electron Builder](https://github.com/electron-userland/electron-builder)) and just run:
 yarn dest
 
 # About

@@ -2,38 +2,33 @@
 const Util = require('../../js/utilities.js');
 
 WinJS.UI.Pages.define("pages/home/home.html",
-{
-    ready: function (element, options)
     {
-        document.getElementById("noRandom").style.display = "none";
-        Util.showBackButton();
+        ready: function (element, options) {
+            document.getElementById("noRandom").style.display = "none";
+            Util.showBackButton();
 
-        document.getElementById("animeLoading").style.display = "block";
-        document.getElementById("animeLoading").innerText = "Getting the latest news";
-        WinJS.xhr(
-        {
-                url: "http://104.248.190.168/downloads/news.html"
-        })
-        .done(complete,error);
-    }
-});
+            document.getElementById("animeLoading").style.display = "block";
+            document.getElementById("animeLoading").innerText = "Getting the latest news";
+            WinJS.xhr(
+                {
+                    url: "http://104.248.190.168/news.html"
+                })
+                .done(complete, error);
+        }
+    });
 
-function complete(result)
-{
-    if (result.status === 200)
-    {
+function complete(result) {
+    if (result.status === 200) {
         document.getElementById("animeLoading").style.display = "none";
         document.getElementById("newsContent").innerHTML = result.responseText;
     }
-    else
-    {
+    else {
         document.getElementById("animeLoading").innerText = "Error getting the latest news";
         console.log(result.status);
     }
 }
 
-function error(err)
-{
+function error(err) {
     document.getElementById("animeLoading").innerText = "Error getting the latest news";
     console.log(err);
 }
