@@ -7,7 +7,7 @@ If you just need to run this without having to build it (assuming npm and electr
 npm start
 
 # Build
-You can use any electron build tool, I use ([Electron Builder](https://github.com/electron-userland/electron-builder)) and just run:
+You can use any electron build tool, I use [Electron Builder](https://github.com/electron-userland/electron-builder) and just run:
 yarn dest
 
 # About
