@@ -303,7 +303,7 @@ function infoToOutput(title, images, genres, altTitles, element, currentAnimeId 
 
             if (images[0] !== undefined)
             {
-                var imageUrl = "http://cdn."+annUrlToUse+"/thumbnails/" + images[0];
+                var imageUrl = images[0];
                 WinJS.xhr({ url: imageUrl, responseType: "blob" })
                 .done(
                 function (result)
